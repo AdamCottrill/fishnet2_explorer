@@ -1,22 +1,24 @@
-import logo from './logo.svg';
-import './App.css';
+import "./App.css";
+
+import { useGetTablesQuery } from "./services/tables";
 
 function App() {
+  const { data, error, isLoading, isFetching } = useGetTablesQuery();
+
   return (
     <div className="App">
       <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+        {error ? (
+          <h3>Aw snap - something when wrong....</h3>
+        ) : isLoading || isFetching ? (
+          <h3>Loading...</h3>
+        ) : data ? (
+          <ul>
+            {data.tables.map((table) => (
+              <li key={table}>{table}</li>
+            ))}
+          </ul>
+        ) : null}
       </header>
     </div>
   );
