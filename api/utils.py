@@ -1,8 +1,8 @@
 from collections import OrderedDict
 import sqlite3
 
-FNDB = "F:/LOntario_data/LOMU_Projects.db"
-
+#FNDB = "F:/LOntario_data/LOMU_Projects.db"
+FNDB = "/home/adam/Documents/sandbox/lhmu_warehouse.db"
 
 def first(arr, low, high, x, n):
     """taken from https://www.geeksforgeeks.org/sort-array-according-order-defined-another-array/"""
