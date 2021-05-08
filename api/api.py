@@ -28,12 +28,6 @@ FN_KEYFIELDS = ["PRJ_CD", "SAM", "EFF", "SPC", "GRP", "FISH", "AGEID"]
 # field_in=foo.bar.baz
 
 
-@app.route("/time")
-def get_current_time():
-    """"""
-    return {"time": time.time()}
-
-
 @app.route("/tables")
 def get_database_tables():
     """"""

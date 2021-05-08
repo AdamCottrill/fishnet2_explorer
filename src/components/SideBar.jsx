@@ -1,77 +1,35 @@
-import React, { useState } from "react";
-import { useDispatch } from "react-redux";
+import React from "react";
+import { useSelector } from "react-redux";
 import Accordion from "react-bootstrap/Accordion";
-import Button from "react-bootstrap/Button";
+
 import Card from "react-bootstrap/Card";
-import Form from "react-bootstrap/Form";
 
-import { useGetTablesQuery } from "../services/tables";
+import { getSelectedTable } from "../features/TableSlice";
+import { useGetTableFieldsQuery } from "../services/tableFields";
 
-import { setTable } from "../features/TableSlice";
+import SideBarTableList from "./SideBarTableList";
+import SideBarFieldList from "./SideBarFieldList";
 
 const SideBar = (props) => {
   //const { setTable } = props;
-  const dispatch = useDispatch();
-  const [tableFilter, setTableFilter] = useState();
 
-  const { data, error, isLoading, isFetching } = useGetTablesQuery();
-
-  const contains = (val, filter) => {
-    filter = filter ? filter : "";
-    if (filter === "") {
-      return true;
-    } else {
-      return val.toUpperCase().includes(filter.toUpperCase()) ? true : false;
-    }
-  };
+  // const selectedTable = useSelector(getSelectedTable);
+  // const { data, error, isLoading, isFetching } = useGetTableFieldsQuery(
+  //   selectedTable
+  //);
 
   return (
     <>
       <h3>Sidebar</h3>
 
-      <Accordion defaultActiveKey="0">
+      <Accordion>
         <Card>
           <Accordion.Toggle as={Card.Header} eventKey="0">
             Tables
           </Accordion.Toggle>
           <Accordion.Collapse eventKey="0">
             <Card.Body>
-              {error ? (
-                <h3>Aw snap - something when wrong....</h3>
-              ) : isLoading || isFetching ? (
-                <h3>Loading...</h3>
-              ) : data ? (
-                <>
-                  <Form.Group>
-                    <Form.Control
-                      size="sm"
-                      type="text"
-                      placeholder="Filter tables..."
-                      onChange={(e) => setTableFilter(e.target.value)}
-                    />
-                  </Form.Group>
-
-                  {data.tables.map((table) => {
-                    if (contains(table, tableFilter)) {
-                      return (
-                        <Button
-                          size="sm"
-                          key={table}
-                          value={table}
-                          onClick={(e) =>
-                            dispatch(setTable({ value: e.target.value }))
-                          }
-                          variant="link"
-                        >
-                          {table}
-                        </Button>
-                      );
-                    } else {
-                      return null;
-                    }
-                  })}
-                </>
-              ) : null}
+              <SideBarTableList />
             </Card.Body>
           </Accordion.Collapse>
         </Card>
@@ -81,8 +39,7 @@ const SideBar = (props) => {
           </Accordion.Toggle>
           <Accordion.Collapse eventKey="1">
             <Card.Body>
-              This card will hold a list of check boxes that can be used to add
-              or remove fields from the record set.
+              <SideBarFieldList />
             </Card.Body>
           </Accordion.Collapse>
         </Card>
