@@ -1,6 +1,6 @@
 import React from "react";
 import { useSelector } from "react-redux";
-import Form from "react-bootstrap/Form";
+import { Form } from "semantic-ui-react";
 
 import { getSelectedTable } from "../features/TableSlice";
 
@@ -9,7 +9,6 @@ import { useGetTableFieldsQuery } from "../services/tableFields";
 const SideBarFieldList = () => {
   const selectedTable = useSelector(getSelectedTable);
 
-  console.log("selectedTable = ", selectedTable);
   const { data, error, isLoading, isFetching } = useGetTableFieldsQuery(
     selectedTable
   );
@@ -25,10 +24,10 @@ const SideBarFieldList = () => {
   return (
     <div>
       {data && data.fields && (
-        <Form>
+        <Form size="mini" style={{ textAlign: "left" }}>
           {data.fields.map((fld) => (
-            <Form.Check
-              style={{ textAlign: "left" }}
+            <Form.Checkbox
+              size="mini"
               key={fld}
               label={fld}
               value={fld}

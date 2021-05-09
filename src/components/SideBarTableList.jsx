@@ -2,9 +2,7 @@ import React, { useState } from "react";
 
 import { useDispatch } from "react-redux";
 
-import Form from "react-bootstrap/Form";
-import Spinner from "react-bootstrap/Spinner";
-import Button from "react-bootstrap/Button";
+import { Form } from "semantic-ui-react";
 
 import { useGetTablesQuery } from "../services/tables";
 import { setTable } from "../features/TableSlice";
@@ -25,19 +23,20 @@ const SideBarTableList = () => {
     }
   };
 
+  const handleLinkClick = (e) => {
+    e.preventDefault();
+    dispatch(setTable({ value: e.target.id }));
+  };
+
   const RenderTableList = ({ tables, filter }) => {
     return tables.map((table) => {
       if (contains(table, filter)) {
         return (
-          <Button
-            size="sm"
-            key={table}
-            value={table}
-            onClick={(e) => dispatch(setTable({ value: e.target.value }))}
-            variant="link"
-          >
-            {table}
-          </Button>
+          <div key={table}>
+            <button className="link" id={table} onClick={handleLinkClick}>
+              {table}
+            </button>
+          </div>
         );
       } else {
         return null;
@@ -50,19 +49,16 @@ const SideBarTableList = () => {
       {error ? (
         <h3>Aw snap - something when wrong....</h3>
       ) : isLoading || isFetching ? (
-        <Spinner animation="border" role="status">
-          <span className="sr-only">Loading...</span>
-        </Spinner>
+        <div>Loading...</div>
       ) : data ? (
         <>
-          <Form.Group>
-            <Form.Control
-              size="sm"
+          <Form size="mini">
+            <Form.Input
               type="text"
               placeholder="Filter tables..."
               onChange={(e) => setTableFilter(e.target.value)}
             />
-          </Form.Group>
+          </Form>
           <RenderTableList tables={data.tables} filter={tableFilter} />
         </>
       ) : null}

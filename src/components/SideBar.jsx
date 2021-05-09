@@ -1,59 +1,58 @@
-import React from "react";
-import { useSelector } from "react-redux";
-import Accordion from "react-bootstrap/Accordion";
+import React, { useState } from "react";
 
-import Card from "react-bootstrap/Card";
-
-import { getSelectedTable } from "../features/TableSlice";
-import { useGetTableFieldsQuery } from "../services/tableFields";
+import { Accordion, Icon } from "semantic-ui-react";
 
 import SideBarTableList from "./SideBarTableList";
 import SideBarFieldList from "./SideBarFieldList";
 
 const SideBar = (props) => {
-  //const { setTable } = props;
+  const [activeIndex, setActiveIndex] = useState(-1);
 
-  // const selectedTable = useSelector(getSelectedTable);
-  // const { data, error, isLoading, isFetching } = useGetTableFieldsQuery(
-  //   selectedTable
-  //);
+  const handleAccordionClick = (e, { index }) => {
+    const newIndex = activeIndex === index ? -1 : index;
+    setActiveIndex(newIndex);
+  };
 
   return (
     <>
       <h3>Sidebar</h3>
 
-      <Accordion>
-        <Card>
-          <Accordion.Toggle as={Card.Header} eventKey="0">
-            Tables
-          </Accordion.Toggle>
-          <Accordion.Collapse eventKey="0">
-            <Card.Body>
-              <SideBarTableList />
-            </Card.Body>
-          </Accordion.Collapse>
-        </Card>
-        <Card>
-          <Accordion.Toggle as={Card.Header} eventKey="1">
-            Fields
-          </Accordion.Toggle>
-          <Accordion.Collapse eventKey="1">
-            <Card.Body>
-              <SideBarFieldList />
-            </Card.Body>
-          </Accordion.Collapse>
-        </Card>
+      <Accordion styled>
+        <Accordion.Title
+          active={activeIndex === 0}
+          index={0}
+          onClick={handleAccordionClick}
+        >
+          <Icon name="dropdown" />
+          Tables
+        </Accordion.Title>
+        <Accordion.Content active={activeIndex === 0}>
+          <SideBarTableList />
+        </Accordion.Content>
 
-        <Card>
-          <Accordion.Toggle as={Card.Header} eventKey="2">
-            Filters
-          </Accordion.Toggle>
-          <Accordion.Collapse eventKey="2">
-            <Card.Body>
-              THis will hold widgets to apply filters to our records
-            </Card.Body>
-          </Accordion.Collapse>
-        </Card>
+        <Accordion.Title
+          active={activeIndex === 1}
+          index={1}
+          onClick={handleAccordionClick}
+        >
+          <Icon name="dropdown" />
+          Fields
+        </Accordion.Title>
+        <Accordion.Content active={activeIndex === 1}>
+          <SideBarFieldList />
+        </Accordion.Content>
+
+        <Accordion.Title
+          active={activeIndex === 2}
+          index={2}
+          onClick={handleAccordionClick}
+        >
+          <Icon name="dropdown" />
+          Filters
+        </Accordion.Title>
+        <Accordion.Content active={activeIndex === 2}>
+          <p>Filters here</p>
+        </Accordion.Content>
       </Accordion>
     </>
   );

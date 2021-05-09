@@ -2,9 +2,7 @@ import "./App.css";
 import { useSelector } from "react-redux";
 import { getSelectedTable } from "./features/TableSlice";
 
-import Col from "react-bootstrap/Col";
-import Container from "react-bootstrap/Container";
-import Row from "react-bootstrap/Row";
+import { Container, Grid } from "semantic-ui-react";
 
 import SideBar from "./components/SideBar";
 
@@ -14,17 +12,22 @@ function App() {
   return (
     <div className="App">
       <Container fluid>
-        <Row>
-          <h2>Table2: {selectedTable}</h2>
-        </Row>
-        <Row>
-          <Col xs={2}>
-            <SideBar />
-          </Col>
-          <Col>
-            <h3>Content</h3>
-          </Col>
-        </Row>
+        <Grid>
+          <Grid.Row>
+            <Grid.Column textAlign="center">
+              <h2>Table: {selectedTable}</h2>
+            </Grid.Column>
+          </Grid.Row>
+
+          <Grid.Row>
+            <Grid.Column width={3}>
+              <SideBar />
+            </Grid.Column>
+            <Grid.Column>
+              <h3>Content</h3>
+            </Grid.Column>
+          </Grid.Row>
+        </Grid>
       </Container>
     </div>
   );
