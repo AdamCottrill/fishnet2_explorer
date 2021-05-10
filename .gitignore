@@ -21,3 +21,12 @@
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+
+
+.dir-locals.el
+.env.development
+api/__init__.py
+api/__pycache__/
+jsconfig.json
+tmp.diff
+api/.flaskenv

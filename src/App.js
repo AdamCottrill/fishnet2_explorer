@@ -6,6 +6,8 @@ import { Container, Grid } from "semantic-ui-react";
 
 import SideBar from "./components/SideBar";
 
+import TableData from "./components/TableData";
+
 function App() {
   const selectedTable = useSelector(getSelectedTable);
 
@@ -24,7 +26,7 @@ function App() {
               <SideBar />
             </Grid.Column>
             <Grid.Column>
-              <h3>Content</h3>
+              <TableData />
             </Grid.Column>
           </Grid.Row>
         </Grid>

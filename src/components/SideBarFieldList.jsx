@@ -1,37 +1,44 @@
 import React from "react";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { Form } from "semantic-ui-react";
 
-import { getSelectedTable } from "../features/TableSlice";
+//import { getSelectedTable } from "../features/TableSlice";
+import { getFields, toggleFieldState } from "../features/FieldsSlice";
 
-import { useGetTableFieldsQuery } from "../services/tableFields";
+//import { useGetTableFieldsQuery } from "../services/tableFields";
 
 const SideBarFieldList = () => {
-  const selectedTable = useSelector(getSelectedTable);
+  //  const selectedTable = useSelector(getSelectedTable);
+  const fields = useSelector(getFields);
 
-  const { data, error, isLoading, isFetching } = useGetTableFieldsQuery(
-    selectedTable
-  );
+  const dispatch = useDispatch();
 
-  if (error) {
-    return <div>Something went wrong</div>;
-  }
+  console.log("fields = ", fields);
 
-  if (isLoading || isFetching) {
-    return <div>Loading...</div>;
-  }
+  // const { data, error, isLoading, isFetching } = useGetTableFieldsQuery(
+  //   selectedTable
+  // );
+
+  // if (error) {
+  //   return <div>Something went wrong</div>;
+  // }
+
+  // if (isLoading || isFetching) {
+  //   return <div>Loading...</div>;
+  // }
 
   return (
     <div>
-      {data && data.fields && (
+      {fields && (
         <Form size="mini" style={{ textAlign: "left" }}>
-          {data.fields.map((fld) => (
+          {Object.entries(fields).forEach(([value, checked]) => (
             <Form.Checkbox
               size="mini"
-              key={fld}
-              label={fld}
-              value={fld}
-              checked
+              key={value}
+              label={value}
+              value={value}
+              checked={checked}
+              onChecked={dispatch(toggleFieldState(value))}
             />
           ))}
         </Form>

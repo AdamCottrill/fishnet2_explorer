@@ -17,7 +17,7 @@ app.config["JSON_SORT_KEYS"] = False
 
 # consider loading tables and sorted fields as soon as the application loads.
 
-ROW_LIMIT = 25
+ROW_LIMIT = 50
 FN_KEYFIELDS = ["PRJ_CD", "SAM", "EFF", "SPC", "GRP", "FISH", "AGEID"]
 
 # sort fields by keyfield, fields, xfields

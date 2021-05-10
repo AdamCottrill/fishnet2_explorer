@@ -49,3 +49,17 @@ button.link {
   text-decoration: underline;
   cursor: pointer;
 }
+
+
+html {
+	overflow: auto;
+	height: 100%;
+}
+
+body {
+  overflow-x:auto
+}
+
+.table-data {
+  overflow-x:scroll !important;
+}

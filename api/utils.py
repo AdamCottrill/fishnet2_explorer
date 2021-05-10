@@ -90,6 +90,10 @@ def sort_fields(fields, keyfields):
 
     allfields = mykeyfields + myotherfields + myxfields
 
+    #move DBF_FILE to the end if it is included
+    if 'DBF_FILE' in allfields:
+        allfields.append(allfields.pop(allfields.index('DBF_FILE')))
+
     return allfields
 
 
