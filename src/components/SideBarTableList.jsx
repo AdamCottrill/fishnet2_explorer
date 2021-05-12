@@ -1,17 +1,23 @@
-import React, { useState } from "react";
-
-import { useDispatch } from "react-redux";
+import React, { useState, useContext } from "react";
 
 import { Form } from "semantic-ui-react";
 
-import { useGetTablesQuery } from "../services/tables";
-import { setTable } from "../features/TableSlice";
+import { useQuery } from "react-query";
+import { getTables } from "../services/api";
+
+import { TableContext } from "../contexts/TableContext";
+import { FieldsContext } from "../contexts/FieldsContext";
 
 const SideBarTableList = () => {
-  const { data, error, isLoading, isFetching } = useGetTablesQuery();
+  const { data, error, isLoading, isFetching } = useQuery(
+    "tableList",
+    getTables
+  );
 
-  const dispatch = useDispatch();
   const [tableFilter, setTableFilter] = useState("");
+
+  const { setSelectedTable } = useContext(TableContext);
+  const { resetFields } = useContext(FieldsContext);
 
   const contains = (val, filter) => {
     filter = filter ? filter.toUpperCase() : "";
@@ -25,7 +31,9 @@ const SideBarTableList = () => {
 
   const handleLinkClick = (e) => {
     e.preventDefault();
-    dispatch(setTable({ value: e.target.id }));
+    setTableFilter("");
+    resetFields();
+    setSelectedTable(e.target.id);
   };
 
   const RenderTableList = ({ tables, filter }) => {
@@ -54,6 +62,7 @@ const SideBarTableList = () => {
         <>
           <Form size="mini">
             <Form.Input
+              value={tableFilter}
               type="text"
               placeholder="Filter tables..."
               onChange={(e) => setTableFilter(e.target.value)}

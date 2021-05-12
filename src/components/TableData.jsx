@@ -1,27 +1,30 @@
-import React from "react";
-import { useSelector } from "react-redux";
+import React, { useContext } from "react";
+import { useQuery } from "react-query";
 
-import { getSelectedTable } from "../features/TableSlice";
-import { useGetTableDataQuery } from "../services/tableData";
-
+import { getTableData } from "../services/api";
 import SortableTable from "./SortableTable";
 
-const TableData = () => {
-  const selectedTable = useSelector(getSelectedTable);
+import { FieldsContext } from "../contexts/FieldsContext";
 
-  const { data, error, isLoading, isFetching } = useGetTableDataQuery(
-    selectedTable
+const TableData = ({ selectedTable }) => {
+  const { excludedFields } = useContext(FieldsContext);
+
+  const { data, error, isLoading, isFetching } = useQuery(
+    ["table-data", selectedTable],
+    () => getTableData(selectedTable)
   );
 
   const makeColumns = (row) => {
     if (typeof row === "undefined") {
       return "";
     }
-    const columns = Object.keys(data.data[0]).map((x) => ({
-      Header: x,
-      accessor: x,
-      Cell: (props) => (props.value ? props.value : "--"),
-    }));
+    const columns = Object.keys(data.data[0])
+      .filter((x) => !excludedFields.includes(x))
+      .map((x) => ({
+        Header: x,
+        accessor: x,
+        Cell: (props) => (props.value ? props.value : "--"),
+      }));
     return columns;
   };
 

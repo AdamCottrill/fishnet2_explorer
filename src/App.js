@@ -1,15 +1,15 @@
+import { useContext } from "react";
+
 import "./App.css";
-import { useSelector } from "react-redux";
-import { getSelectedTable } from "./features/TableSlice";
 
 import { Container, Grid } from "semantic-ui-react";
 
+import { TableContext } from "./contexts/TableContext";
 import SideBar from "./components/SideBar";
-
 import TableData from "./components/TableData";
 
 function App() {
-  const selectedTable = useSelector(getSelectedTable);
+  const { selectedTable } = useContext(TableContext);
 
   return (
     <div className="App">
@@ -20,13 +20,12 @@ function App() {
               <h2>Table: {selectedTable}</h2>
             </Grid.Column>
           </Grid.Row>
-
           <Grid.Row>
             <Grid.Column width={3}>
               <SideBar />
             </Grid.Column>
             <Grid.Column>
-              <TableData />
+              <TableData selectedTable={selectedTable} />
             </Grid.Column>
           </Grid.Row>
         </Grid>

@@ -1,47 +1,43 @@
-import React from "react";
-import { useSelector, useDispatch } from "react-redux";
-import { Form } from "semantic-ui-react";
+import React, { useContext } from "react";
 
-//import { getSelectedTable } from "../features/TableSlice";
-import { getFields, toggleFieldState } from "../features/FieldsSlice";
+import { useQuery } from "react-query";
 
-//import { useGetTableFieldsQuery } from "../services/tableFields";
+import { TableContext } from "../contexts/TableContext";
+import { FieldsContext } from "../contexts/FieldsContext";
+import { getTableFields } from "../services/api";
 
-const SideBarFieldList = () => {
-  //  const selectedTable = useSelector(getSelectedTable);
-  const fields = useSelector(getFields);
+import FieldsCheckBoxes from "./FieldsCheckBoxes";
 
-  const dispatch = useDispatch();
+const SideBarFieldList = (props) => {
+  // when the selectedTable changes - update the list of fields in state
 
-  console.log("fields = ", fields);
+  const { selectedTable } = useContext(TableContext);
+  const { setFields } = useContext(FieldsContext);
 
-  // const { data, error, isLoading, isFetching } = useGetTableFieldsQuery(
-  //   selectedTable
-  // );
+  const { data, error, isLoading, isFetching } = useQuery(
+    ["getTableFields", selectedTable],
+    () => getTableFields(selectedTable)
+  );
 
-  // if (error) {
-  //   return <div>Something went wrong</div>;
-  // }
+  if (error) {
+    return <div>Something went wrong</div>;
+  }
 
-  // if (isLoading || isFetching) {
-  //   return <div>Loading...</div>;
-  // }
+  if (isLoading || isFetching) {
+    return <div>Loading...</div>;
+  }
+
+  const toggleFieldState = (fld) => {
+    setFields(fld);
+  };
 
   return (
     <div>
-      {fields && (
-        <Form size="mini" style={{ textAlign: "left" }}>
-          {Object.entries(fields).forEach(([value, checked]) => (
-            <Form.Checkbox
-              size="mini"
-              key={value}
-              label={value}
-              value={value}
-              checked={checked}
-              onChecked={dispatch(toggleFieldState(value))}
-            />
-          ))}
-        </Form>
+      {data && (
+        <FieldsCheckBoxes
+          fields={data.fields}
+          toggleFieldState={toggleFieldState}
+        />
       )}
     </div>
   );
