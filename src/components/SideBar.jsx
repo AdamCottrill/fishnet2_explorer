@@ -7,6 +7,7 @@ import SideBarFieldList from "./SideBarFieldList";
 import SideBarFieldContains from "./SideBarFieldContains";
 import SideBarValuesIn from "./SideBarValuesIn";
 import SideBarFieldNotNull from "./SideBarFieldNotNull";
+import SideBarProjectType from "./SideBarProjectType";
 
 const SideBar = (props) => {
   const [activeIndex, setActiveIndex] = useState(-1);
@@ -30,15 +31,7 @@ const SideBar = (props) => {
           Project Type
         </Accordion.Title>
         <Accordion.Content active={activeIndex === 99}>
-          <p>Check box array of our project types</p>
-          <ul>
-            <li>All</li>
-            <li>CD/CF</li>
-            <li>IA/IS</li>
-            <li>SC</li>
-            <li>SD</li>
-            <li>SF</li>
-          </ul>
+          <SideBarProjectType />
         </Accordion.Content>
 
         <Accordion.Title
