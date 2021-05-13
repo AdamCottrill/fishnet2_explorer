@@ -19,7 +19,7 @@ const SideBar = (props) => {
 
   return (
     <>
-      <h3>Sidebar</h3>
+      <h3>Refine By:</h3>
 
       <Accordion styled>
         <Accordion.Title

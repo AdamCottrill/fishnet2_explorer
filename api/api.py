@@ -146,7 +146,7 @@ def distinct_values(table_name, field_name):
     return {"values": list(data)}
 
 
-@app.route("/record_count/<table_name>/")
+@app.route("/<table_name>/record_count/")
 def record_count(table_name):
     """our front end will call this endpoint, with the current filters to
     see if this field has any data, returns true if it does, returns
@@ -158,9 +158,19 @@ def record_count(table_name):
 
     """
 
-    sql = "SELECT count(*) as records FROM [{}] ;".format(table_name)
+    filters = request.args
+
+    field_names = get_field_names(table_name)
+
+    sql = "SELECT count(*) as records FROM [{}] ".format(table_name)
     # tack filters onto sql here:
+    sql_filters = build_sql_filter(filters, field_names)
+
+    if sql_filters != "":
+        where = "WHERE {}".format(sql_filters)
+    else:
+        where = ""
 
     # return true if there is a record,
-    data = run_query(sql)
+    data = run_query(sql + where)
     return {"values": list(data)}

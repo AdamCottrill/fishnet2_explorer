@@ -1,8 +1,9 @@
 from collections import OrderedDict
 import sqlite3
 
-#FNDB = "F:/LOntario_data/LOMU_Projects.db"
-FNDB = "/home/adam/Documents/sandbox/lhmu_warehouse.db"
+FNDB = "F:/LOntario_data/LOMU_Projects.db"
+# FNDB = "/home/adam/Documents/sandbox/lhmu_warehouse.db"
+
 
 def first(arr, low, high, x, n):
     """taken from https://www.geeksforgeeks.org/sort-array-according-order-defined-another-array/"""
@@ -90,9 +91,9 @@ def sort_fields(fields, keyfields):
 
     allfields = mykeyfields + myotherfields + myxfields
 
-    #move DBF_FILE to the end if it is included
-    if 'DBF_FILE' in allfields:
-        allfields.append(allfields.pop(allfields.index('DBF_FILE')))
+    # move DBF_FILE to the end if it is included
+    if "DBF_FILE" in allfields:
+        allfields.append(allfields.pop(allfields.index("DBF_FILE")))
 
     return allfields
 
@@ -161,7 +162,17 @@ def build_sql_filter(url_filters, fields):
 
     Arguments: - `url_filters`: - `fields`:
 
+    '{} is not null'
+
+
     """
+
+    _notNulls = url_filters.get("notNull")
+
+    if _notNulls:
+        notNulls = list(_notNulls.split(","))
+    else:
+        notNulls = []
 
     likes = [
         (k.replace("__like", ""), v.upper())
@@ -180,9 +191,14 @@ def build_sql_filter(url_filters, fields):
     ]
 
     # check for fields here - make sure they exist in this table and remove them if they don't
+    notNulls = [x for x in notNulls if x in fields]
     likes = [x for x in likes if x[0] in fields]
     ins = [x for x in ins if x[0] in fields]
     rest = [x for x in rest if x[0] in fields]
+
+    notNull_sql = " AND ".join(
+        ["NOT ([{0}] is null OR [{0}]='') ".format(x) for x in notNulls]
+    )
 
     likes_sql = " AND ".join(
         ["UPPER([{}]) like '%{}%'".format(fld, value) for fld, value in likes]
@@ -190,6 +206,8 @@ def build_sql_filter(url_filters, fields):
     ins_sql = " AND ".join(["[{}] in ({})".format(fld, value) for fld, value in ins])
     rest_sql = " AND ".join(["[{}]='{}'".format(fld, value) for fld, value in rest])
 
-    sql = " AND ".join([x for x in [likes_sql, ins_sql, rest_sql] if x != ""])
+    sql = " AND ".join(
+        [x for x in [likes_sql, ins_sql, notNull_sql, rest_sql] if x != ""]
+    )
 
     return sql

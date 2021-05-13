@@ -8,6 +8,7 @@ import { TableContext } from "./contexts/TableContext";
 import SideBar from "./components/SideBar";
 import TableData from "./components/TableData";
 import ButtonBar from "./components/ButtonBar";
+import RecordCount from "./components/RecordCount";
 
 function App() {
   const { selectedTable } = useContext(TableContext);
@@ -26,7 +27,15 @@ function App() {
               <SideBar />
             </Grid.Column>
             <Grid.Column width={13}>
-              <ButtonBar></ButtonBar>
+              <Grid.Row>
+                <Grid.Column width={3}>
+                  <RecordCount selectedTable={selectedTable} />
+                </Grid.Column>
+                <Grid.Column width={13}>
+                  <ButtonBar />
+                </Grid.Column>
+              </Grid.Row>
+
               <TableData selectedTable={selectedTable} />
             </Grid.Column>
           </Grid.Row>

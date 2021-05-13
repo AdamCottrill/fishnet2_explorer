@@ -7,25 +7,12 @@ import SortableTable from "./SortableTable";
 import { FieldsContext } from "../contexts/FieldsContext";
 import { FiltersContext } from "../contexts/FiltersContext";
 
+import { filters2args } from "../utils";
+
 const TableData = ({ selectedTable }) => {
   const { excludedFields } = useContext(FieldsContext);
   const { filters } = useContext(FiltersContext);
   //field constians => {}
-
-  const filters2args = (filters) => {
-    //const filters2 = { PRJ_CD__like: "LHA_IA" };
-    const args = {};
-    Object.entries(filters.fieldContains).forEach(
-      ([key, val]) => (args[`${key}__like`] = val)
-    );
-    Object.entries(filters.valuesIn).forEach(
-      ([key, val]) => (args[`${key}__in`] = val)
-    );
-    if (filters.notNull) {
-      args["notNull"] = filters.notNull;
-    }
-    return args;
-  };
 
   const args = filters2args(filters);
 

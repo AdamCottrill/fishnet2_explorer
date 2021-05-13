@@ -14,3 +14,8 @@ export const getTableData = (tablename, filters) => {
     .get(`${tablename}/data/`, { params: filters })
     .then((res) => res.data);
 };
+
+export const getRecordCount = (tablename, filters) =>
+  api
+    .get(`${tablename}/record_count/`, { params: filters })
+    .then((res) => res.data);

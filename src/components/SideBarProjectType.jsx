@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-import { Form, Radio } from "semantic-ui-react";
+import { Segment, Form, Radio } from "semantic-ui-react";
 
 const SideBarProjectType = (props) => {
   const [projectType, setProjectType] = useState("All");
@@ -20,19 +20,21 @@ const SideBarProjectType = (props) => {
   ];
 
   return (
-    <Form size="mini" style={{ textAlign: "left" }}>
-      {projectTypes.map(([ptype, label]) => (
-        <Form.Field key={ptype}>
-          <Radio
-            label={label}
-            name="projetTypeGroup"
-            value={ptype}
-            checked={projectType === ptype}
-            onChange={handleChange}
-          />
-        </Form.Field>
-      ))}
-    </Form>
+    <Segment basic>
+      <Form size="mini" style={{ textAlign: "left" }}>
+        {projectTypes.map(([ptype, label]) => (
+          <Form.Field key={ptype}>
+            <Radio
+              label={label}
+              name="projetTypeGroup"
+              value={ptype}
+              checked={projectType === ptype}
+              onChange={handleChange}
+            />
+          </Form.Field>
+        ))}
+      </Form>
+    </Segment>
   );
 };
 
