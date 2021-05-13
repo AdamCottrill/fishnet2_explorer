@@ -7,6 +7,7 @@ import { Container, Grid } from "semantic-ui-react";
 import { TableContext } from "./contexts/TableContext";
 import SideBar from "./components/SideBar";
 import TableData from "./components/TableData";
+import ButtonBar from "./components/ButtonBar";
 
 function App() {
   const { selectedTable } = useContext(TableContext);
@@ -24,7 +25,8 @@ function App() {
             <Grid.Column width={3}>
               <SideBar />
             </Grid.Column>
-            <Grid.Column>
+            <Grid.Column width={13}>
+              <ButtonBar></ButtonBar>
               <TableData selectedTable={selectedTable} />
             </Grid.Column>
           </Grid.Row>

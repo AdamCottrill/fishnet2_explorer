@@ -11,6 +11,7 @@ import App from "./App";
 //import AppContextProvider from "./Context";
 import TableContextProvider from "./contexts/TableContext";
 import FieldsContextProvider from "./contexts/FieldsContext";
+import FiltersContextProvider from "./contexts/FiltersContext";
 
 const queryClient = new QueryClient();
 
@@ -18,10 +19,12 @@ ReactDOM.render(
   <React.StrictMode>
     <TableContextProvider>
       <FieldsContextProvider>
-        <QueryClientProvider client={queryClient}>
-          <App />
-          <ReactQueryDevtools />
-        </QueryClientProvider>
+        <FiltersContextProvider>
+          <QueryClientProvider client={queryClient}>
+            <App />
+            <ReactQueryDevtools />
+          </QueryClientProvider>
+        </FiltersContextProvider>
       </FieldsContextProvider>
     </TableContextProvider>
   </React.StrictMode>,

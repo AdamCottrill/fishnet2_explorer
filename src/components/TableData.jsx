@@ -9,9 +9,11 @@ import { FieldsContext } from "../contexts/FieldsContext";
 const TableData = ({ selectedTable }) => {
   const { excludedFields } = useContext(FieldsContext);
 
+  const filters2 = { PRJ_CD__like: "LHA_IA" };
+
   const { data, error, isLoading, isFetching } = useQuery(
-    ["table-data", selectedTable],
-    () => getTableData(selectedTable)
+    ["table-data", selectedTable, filters2],
+    () => getTableData(selectedTable, filters2)
   );
 
   const makeColumns = (row) => {

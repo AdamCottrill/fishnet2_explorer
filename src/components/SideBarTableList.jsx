@@ -68,6 +68,7 @@ const SideBarTableList = () => {
               onChange={(e) => setTableFilter(e.target.value)}
             />
           </Form>
+
           <RenderTableList tables={data.tables} filter={tableFilter} />
         </>
       ) : null}
