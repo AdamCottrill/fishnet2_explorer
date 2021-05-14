@@ -9,7 +9,7 @@ import { FiltersContext } from "../contexts/FiltersContext";
 
 import { filters2args } from "../utils";
 
-const TableData = ({ selectedTable }) => {
+const TableData = ({ projectType, selectedTable }) => {
   const { excludedFields } = useContext(FieldsContext);
   const { filters } = useContext(FiltersContext);
   //field constians => {}
@@ -17,8 +17,8 @@ const TableData = ({ selectedTable }) => {
   const args = filters2args(filters);
 
   const { data, error, isLoading, isFetching } = useQuery(
-    ["table-data", selectedTable, args],
-    () => getTableData(selectedTable, args)
+    ["table-data", projectType, selectedTable, args],
+    () => getTableData(projectType, selectedTable, args)
   );
 
   const makeColumns = (row) => {

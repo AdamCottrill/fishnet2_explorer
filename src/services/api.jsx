@@ -4,18 +4,19 @@ const api = axios.create({
   baseUrl: "/",
 });
 
-export const getTables = () => api.get("tables").then((res) => res.data);
+export const getTables = (projectType) =>
+  api.get(`${projectType}/tables`).then((res) => res.data);
 
-export const getTableFields = (tablename) =>
-  api.get(`${tablename}/fields`).then((res) => res.data);
+export const getTableFields = (projectType, tablename) =>
+  api.get(`${projectType}/${tablename}/fields`).then((res) => res.data);
 
-export const getTableData = (tablename, filters) => {
+export const getTableData = (projectType, tablename, filters) => {
   return api
-    .get(`${tablename}/data/`, { params: filters })
+    .get(`${projectType}/${tablename}/data/`, { params: filters })
     .then((res) => res.data);
 };
 
-export const getRecordCount = (tablename, filters) =>
+export const getRecordCount = (projectType, tablename, filters) =>
   api
-    .get(`${tablename}/record_count/`, { params: filters })
+    .get(`${projectType}/${tablename}/record_count/`, { params: filters })
     .then((res) => res.data);

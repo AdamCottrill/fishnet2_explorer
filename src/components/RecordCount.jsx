@@ -8,14 +8,14 @@ import { getRecordCount } from "../services/api";
 
 import { filters2args } from "../utils";
 
-const RecordCount = ({ selectedTable }) => {
+const RecordCount = ({ projectType, selectedTable }) => {
   const { filters } = useContext(FiltersContext);
 
   const args = filters2args(filters);
 
   const { data, error, isLoading } = useQuery(
-    ["record-count", selectedTable, args],
-    () => getRecordCount(selectedTable, args)
+    ["record-count", projectType, selectedTable, args],
+    () => getRecordCount(projectType, selectedTable, args)
   );
 
   if (isLoading) {

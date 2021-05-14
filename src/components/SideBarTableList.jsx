@@ -5,13 +5,15 @@ import { Form } from "semantic-ui-react";
 import { useQuery } from "react-query";
 import { getTables } from "../services/api";
 
+import { ProjectTypeContext } from "../contexts/ProjectTypeContext";
 import { TableContext } from "../contexts/TableContext";
 import { FieldsContext } from "../contexts/FieldsContext";
 
 const SideBarTableList = () => {
+  const { projectType } = useContext(ProjectTypeContext);
   const { data, error, isLoading, isFetching } = useQuery(
-    "tableList",
-    getTables
+    ["tableList", projectType],
+    () => getTables(projectType)
   );
 
   const [tableFilter, setTableFilter] = useState("");

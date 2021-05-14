@@ -14,3 +14,13 @@ export const filters2args = (filters) => {
   }
   return args;
 };
+
+export const projectTypes = [
+  ["All", "All"],
+  ["CFCD", "Catch Sampling"],
+  ["IAIS", "Netting"],
+  ["IM", "Fishway"],
+  ["SC", "Creels"],
+  ["SD", "Sport Diary"],
+  ["SF", "Sport Fish"],
+];

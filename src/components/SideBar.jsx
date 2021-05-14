@@ -52,7 +52,7 @@ const SideBar = (props) => {
           onClick={handleAccordionClick}
         >
           <Icon name="dropdown" />
-          Fields
+          Hide Fields
         </Accordion.Title>
         <Accordion.Content active={activeIndex === 1}>
           <SideBarFieldList />

@@ -1,8 +1,22 @@
 from collections import OrderedDict
+import os
+import pdb
 import sqlite3
 
-FNDB = "F:/LOntario_data/LOMU_Projects.db"
+# FNDB = "F:/LOntario_data/LOMU_Projects.db"
+# FNDB = "C:/Users/COTTRILLAD/1work/Superior/warehouse/masters/IA_master.db"
 # FNDB = "/home/adam/Documents/sandbox/lhmu_warehouse.db"
+
+
+DBS = {
+    "all": "./databases/lhmu_warehouse.db",
+    "cfcd": "./databases/CF_master.db",
+    "iais": "./databases/IA_master.db",
+    "im": "./databases/lhmu_warehouse.db",
+    "sc": "./databases/SC_master.db",
+    "sf": "./databases/SF_master.db",
+    "sd": "./databases/SD_master.db",
+}
 
 
 def first(arr, low, high, x, n):
@@ -98,20 +112,28 @@ def sort_fields(fields, keyfields):
     return allfields
 
 
-def get_field_names(table_name):
+def get_field_names(
+    project_type,
+    table_name,
+):
     """Get the known field names for this table.  This could be a cache some day."""
-    sql = "SELECT * FROM {} limit 1;".format(table_name)
-    data = run_query(sql)
-    return list(data[0].keys())
+    # sql = "SELECT * FROM [{}]".format(table_name)
+    sql = "PRAGMA table_info( [{}] );".format(table_name)
+
+    data = run_query(sql, project_type)
+    if data:
+        return [x.get("name") for x in data]
+    else:
+        return []
 
 
-def get_field_arg(table_name, key_fields, selected_fields=None):
+def get_field_arg(project_type, table_name, key_fields, selected_fields=None):
     """given a table, the list of key fields and a list of selected fields
     return a sql formatted list of field hmes in the correct order"""
     # we should consider setting up a cache that queries the database
     # for the schema once when the server loads.
 
-    db_fields = get_field_names(table_name)
+    db_fields = get_field_names(project_type, table_name)
 
     if selected_fields:
         field_set = set(selected_fields.split(","))
@@ -132,16 +154,18 @@ def dict_factory(cursor, row):
     return d
 
 
-def run_query(sql, fetchone=False):
+def run_query(sql, project_type="all", fetchone=False):
     """
 
     Arguments:
     - `sql`:
     """
 
+    fndb = DBS.get(project_type.lower())
+
     data = {}
 
-    with sqlite3.connect(FNDB) as con:
+    with sqlite3.connect(fndb) as con:
         con.row_factory = dict_factory
         cursor = con.cursor()
         cursor.execute(sql)

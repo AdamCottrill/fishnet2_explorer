@@ -2,6 +2,7 @@ import React, { useState, useContext, useEffect } from "react";
 import { Form } from "semantic-ui-react";
 import { useQuery } from "react-query";
 
+import { ProjectTypeContext } from "../contexts/ProjectTypeContext";
 import { TableContext } from "../contexts/TableContext";
 import { FiltersContext } from "../contexts/FiltersContext";
 
@@ -11,6 +12,7 @@ const SideBarValuesIn = (props) => {
   // when the selectedTable changes - update the list of fields in state
   // current localFilters for this component willalso have to come from context
 
+  const { projectType } = useContext(ProjectTypeContext);
   const { selectedTable } = useContext(TableContext);
   const { filters, setValuesIn } = useContext(FiltersContext);
 
@@ -21,8 +23,8 @@ const SideBarValuesIn = (props) => {
   }, [filters, setLocalFilters]);
 
   const { data, error, isLoading, isFetching } = useQuery(
-    ["getTableFields", selectedTable],
-    () => getTableFields(selectedTable)
+    ["getTableFields", projectType, selectedTable],
+    () => getTableFields(projectType, selectedTable)
   );
 
   if (error) {

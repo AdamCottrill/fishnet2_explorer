@@ -1,23 +1,18 @@
-import React, { useState } from "react";
+import React, { useContext } from "react";
 
+import { ProjectTypeContext } from "../contexts/ProjectTypeContext";
 import { Segment, Form, Radio } from "semantic-ui-react";
 
+import { projectTypes } from "../utils";
+
 const SideBarProjectType = (props) => {
-  const [projectType, setProjectType] = useState("All");
+  //const [projectType, setProjectType] = useState("All");
+
+  const { projectType, setProjectType } = useContext(ProjectTypeContext);
 
   const handleChange = (event, { value }) => {
     setProjectType(value);
   };
-
-  const projectTypes = [
-    ["All", "All"],
-    ["CDCF", "Catch Sampling"],
-    ["IAIS", "Netting"],
-    ["IM", "Fishway"],
-    ["SC", "Creels"],
-    ["SD", "Sport Diary"],
-    ["SF", "Sport Fish"],
-  ];
 
   return (
     <Segment basic>

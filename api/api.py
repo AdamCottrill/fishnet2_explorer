@@ -17,7 +17,7 @@ app.config["JSON_SORT_KEYS"] = False
 
 # consider loading tables and sorted fields as soon as the application loads.
 
-ROW_LIMIT = 50
+ROW_LIMIT = 200
 FN_KEYFIELDS = ["PRJ_CD", "SAM", "EFF", "SPC", "GRP", "FISH", "AGEID"]
 
 # sort fields by keyfield, fields, xfields
@@ -28,33 +28,34 @@ FN_KEYFIELDS = ["PRJ_CD", "SAM", "EFF", "SPC", "GRP", "FISH", "AGEID"]
 # field_in=foo.bar.baz
 
 
-@app.route("/tables")
-def get_database_tables():
+@app.route("/<project_type>/tables")
+def get_database_tables(project_type):
     """"""
 
     sql = "SELECT name FROM sqlite_master WHERE type='table' order by name;"
-    tables = [x["name"] for x in run_query(sql)]
+    tables = [x["name"] for x in run_query(sql, project_type)]
     return {"tables": tables}
 
 
-@app.route("/<table_name>/fields")
-def get_table_fields(table_name):
+@app.route("/<project_type>/<table_name>/fields")
+def get_table_fields(project_type, table_name):
     """Given a table, return all of the fields.  if any of the FN
     Keyfields are in the table, return them first in the correct order and
     then return all of the others.
 
     """
-    sql = "SELECT * FROM {} limit 1;".format(table_name)
-    data = run_query(sql)
-    fields = list(data[0].keys())
+    # sql = "SELECT * FROM {} limit 1;".format(table_name)
+    # data = run_query(sql, project_type)
+    # fields = list(data[0].keys())
+    fields = get_field_names(project_type, table_name)
 
     sortedFields = sort_fields(fields, FN_KEYFIELDS)
 
     return {"fields": sortedFields}
 
 
-@app.route("/<table_name>/data/")
-def get_table_data(table_name):
+@app.route("/<project_type>/<table_name>/data/")
+def get_table_data(project_type, table_name):
     """Given a table name, build the query based on the supplied fields
     and filters.
 
@@ -69,10 +70,12 @@ def get_table_data(table_name):
     filters = request.args
 
     fields = filters.get("fields")
-    field_arg = get_field_arg(table_name, FN_KEYFIELDS, fields)
+    field_arg = get_field_arg(project_type, table_name, FN_KEYFIELDS, fields)
 
-    field_names = get_field_names(table_name)
+    field_names = get_field_names(project_type, table_name)
     sql_filters = build_sql_filter(filters, field_names)
+
+    field_arg = field_arg if field_arg else "*"
 
     sql = "SELECT {} FROM [{}] ".format(field_arg, table_name)
 
@@ -81,13 +84,13 @@ def get_table_data(table_name):
 
     sql = sql + " LIMIT {};".format(ROW_LIMIT)
 
-    data = run_query(sql)
+    data = run_query(sql, project_type)
 
     return {"data": data}
 
 
-@app.route("/always_null/<table_name>/<field_name>/")
-def has_data(table_name, field_name):
+@app.route("/always_null/<project_type>/<table_name>/<field_name>/")
+def has_data(project_type, table_name, field_name):
     """our front end will call this endpoint, with the current filters to
     see if this field has any data, returns true if it does, returns
     false if it is always empty give the table fitlered attributes
@@ -104,15 +107,15 @@ def has_data(table_name, field_name):
     # tack filters onto sql here:
 
     # return true if there is a record,
-    data = run_query(sql, True)
+    data = run_query(sql, project_type, True)
     if data:
         return {"has_data": True}
     else:
         return {"has_data": False}
 
 
-@app.route("/distinct/<table_name>/<field_name>/")
-def distinct_values(table_name, field_name):
+@app.route("/distinct/<project_type>/<table_name>/<field_name>/")
+def distinct_values(project_type, table_name, field_name):
     """our front end will call this endpoint, with the current filters to
     see if this field has any data, returns true if it does, returns
     false if it is always empty give the table fitlered attributes
@@ -125,7 +128,7 @@ def distinct_values(table_name, field_name):
 
     filters = request.args
 
-    field_names = get_field_names(table_name)
+    field_names = get_field_names(project_type, table_name)
     # pop of this field name from the filters - we all values of this field
     # given the filters applied to every other field
     field_names = [x for x in field_names if x != field_name]
@@ -142,12 +145,12 @@ def distinct_values(table_name, field_name):
     )
 
     # return true if there is a record,
-    data = run_query(sql)
+    data = run_query(sql, project_type)
     return {"values": list(data)}
 
 
-@app.route("/<table_name>/record_count/")
-def record_count(table_name):
+@app.route("/<project_type>/<table_name>/record_count/")
+def record_count(project_type, table_name):
     """our front end will call this endpoint, with the current filters to
     see if this field has any data, returns true if it does, returns
     false if it is always empty give the table fitlered attributes
@@ -160,7 +163,7 @@ def record_count(table_name):
 
     filters = request.args
 
-    field_names = get_field_names(table_name)
+    field_names = get_field_names(project_type, table_name)
 
     sql = "SELECT count(*) as records FROM [{}] ".format(table_name)
     # tack filters onto sql here:
@@ -172,5 +175,5 @@ def record_count(table_name):
         where = ""
 
     # return true if there is a record,
-    data = run_query(sql + where)
+    data = run_query(sql + where, project_type)
     return {"values": list(data)}

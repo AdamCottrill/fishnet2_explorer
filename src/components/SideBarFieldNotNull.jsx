@@ -2,6 +2,7 @@ import React, { useContext } from "react";
 import { useQuery } from "react-query";
 import { Form } from "semantic-ui-react";
 
+import { ProjectTypeContext } from "../contexts/ProjectTypeContext";
 import { TableContext } from "../contexts/TableContext";
 import { FiltersContext } from "../contexts/FiltersContext";
 
@@ -10,12 +11,13 @@ import { getTableFields } from "../services/api";
 const SideBarFieldNotNull = (props) => {
   // when the selectedTable changes - update the list of fields in state
 
+  const { projectType } = useContext(ProjectTypeContext);
   const { selectedTable } = useContext(TableContext);
   const { filters, setNotNull } = useContext(FiltersContext);
 
   const { data, error, isLoading, isFetching } = useQuery(
-    ["getTableFields", selectedTable],
-    () => getTableFields(selectedTable)
+    ["getTableFields", projectType, selectedTable],
+    () => getTableFields(projectType, selectedTable)
   );
 
   if (error) {
