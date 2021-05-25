@@ -20,7 +20,8 @@
   "scripts": {
     "start": "react-scripts start",
     "start-api": "cd api && flask run --no-debugger",
-    "build": "react-scripts build",
+    "build": "react-scripts build --environment NODE_ENV:production",
+    "deploy": "yarn build & cp -fr build/ api/build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },

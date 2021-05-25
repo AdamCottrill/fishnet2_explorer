@@ -9,13 +9,14 @@ import sqlite3
 
 
 DBS = {
-    "all": "./databases/lhmu_warehouse.db",
-    "cfcd": "./databases/CF_master.db",
-    "iais": "./databases/IA_master.db",
-    "im": "./databases/lhmu_warehouse.db",
-    "sc": "./databases/SC_master.db",
-    "sf": "./databases/SF_master.db",
-    "sd": "./databases/SD_master.db",
+    "all": "../../ScrapBook/GrandGrandWazoo/GrandGrandWazoo.db",
+    # "all": "./databases/lhmu_warehouse.db",
+    "cfcd": "./databases/CFCD_projects.db",
+    "iais": "./databases/IAIS_projects.db",
+    "im": "./databases/IM_projects.db",
+    "sc": "./databases/SC_projects.db",
+    "sf": "./databases/SF_projects.db",
+    "sd": "./databases/SD_projects.db",
 }
 
 

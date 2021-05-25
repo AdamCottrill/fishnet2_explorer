@@ -1,6 +1,6 @@
 from flask import Flask, request
 
-from api.utils import (
+from utils import (
     sort_fields,
     run_query,
     get_field_arg,

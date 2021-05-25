@@ -14,7 +14,13 @@ import TableContextProvider from "./contexts/TableContext";
 import FieldsContextProvider from "./contexts/FieldsContext";
 import FiltersContextProvider from "./contexts/FiltersContext";
 
-const queryClient = new QueryClient();
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      refetchOnWindowFocus: false,
+    },
+  },
+});
 
 ReactDOM.render(
   <React.StrictMode>
