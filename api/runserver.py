@@ -27,6 +27,7 @@ config = {
     "/static": {"tools.staticdir.on": True, "tools.staticdir.dir": "./build/static"},
 }
 
+# add our flask api to the server:
 cherrypy.tree.graft(app.wsgi_app, "/api")
 
 

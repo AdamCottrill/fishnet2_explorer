@@ -1,14 +1,14 @@
-import React, { useState } from "react";
+import React, { useState } from 'react';
 
-import { Accordion, Icon } from "semantic-ui-react";
+import { Accordion, Icon } from 'semantic-ui-react';
 
-import SideBarTableList from "./SideBarTableList";
-import SideBarFieldList from "./SideBarFieldList";
-import SideBarFieldContains from "./SideBarFieldContains";
-import SideBarValuesIn from "./SideBarValuesIn";
-import SideBarFieldNotNull from "./SideBarFieldNotNull";
-import SideBarProjectType from "./SideBarProjectType";
-
+import SideBarTableList from './SideBarTableList';
+import SideBarFieldList from './SideBarFieldList';
+import SideBarFieldContains from './SideBarFieldContains';
+import SideBarValuesIn from './SideBarValuesIn';
+import SideBarFieldNotNull from './SideBarFieldNotNull';
+import SideBarProjectType from './SideBarProjectType';
+import SideBarProjectCount from './SideBarProjectCount';
 const SideBar = (props) => {
   const [activeIndex, setActiveIndex] = useState(-1);
 
@@ -92,6 +92,18 @@ const SideBar = (props) => {
         </Accordion.Title>
         <Accordion.Content active={activeIndex === 4}>
           <SideBarFieldNotNull />
+        </Accordion.Content>
+
+        <Accordion.Title
+          active={activeIndex === 5}
+          index={5}
+          onClick={handleAccordionClick}
+        >
+          <Icon name="dropdown" />
+          Project Count
+        </Accordion.Title>
+        <Accordion.Content active={activeIndex === 5}>
+          <SideBarProjectCount />
         </Accordion.Content>
       </Accordion>
     </>

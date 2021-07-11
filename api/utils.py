@@ -1,7 +1,7 @@
-from collections import OrderedDict
 import os
 import pdb
 import sqlite3
+from collections import OrderedDict
 
 # FNDB = "F:/LOntario_data/LOMU_Projects.db"
 # FNDB = "C:/Users/COTTRILLAD/1work/Superior/warehouse/masters/IA_master.db"
@@ -9,8 +9,7 @@ import sqlite3
 
 
 DBS = {
-    "all": "../../ScrapBook/GrandGrandWazoo/GrandGrandWazoo.db",
-    # "all": "./databases/lhmu_warehouse.db",
+    "all": "./databases/GrandGrandWazoo.db",
     "cfcd": "./databases/CFCD_projects.db",
     "iais": "./databases/IAIS_projects.db",
     "im": "./databases/IM_projects.db",
@@ -191,6 +190,8 @@ def build_sql_filter(url_filters, fields):
 
 
     """
+
+    print(f"url_filters={url_filters}")
 
     _notNulls = url_filters.get("notNull")
 

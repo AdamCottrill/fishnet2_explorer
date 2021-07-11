@@ -1,12 +1,9 @@
+import sqlite3
+
 from flask import Flask, request
 
-from utils import (
-    sort_fields,
-    run_query,
-    get_field_arg,
-    build_sql_filter,
-    get_field_names,
-)
+from utils import (build_sql_filter, get_field_arg, get_field_names, run_query,
+                   sort_fields)
 
 app = Flask(__name__)
 app.config["JSON_SORT_KEYS"] = False
@@ -64,6 +61,8 @@ def get_table_data(project_type, table_name):
     """
 
     filters = request.args
+
+    print(f"filters = {filters}")
 
     fields = filters.get("fields")
     field_arg = get_field_arg(project_type, table_name, FN_KEYFIELDS, fields)
@@ -173,3 +172,96 @@ def record_count(project_type, table_name):
     # return true if there is a record,
     data = run_query(sql + where, project_type)
     return {"values": list(data)}
+
+
+@app.route("/field_stats/<project_type>/<table_name>/<field_name>/")
+def field_stats(project_type, table_name, field_name):
+    """this endpoint will return a number of statistics about how a field has
+    been used in a table:  How many times it is populated, coount null records
+    by project code, how many disctinct values it has and the top 200 use cases.
+
+    Arguments:
+    - `table`:
+    - `field`:
+
+    """
+
+    sql = f"""select count() as N from [{table_name}]
+            where [{field_name}] is not NULL
+            and [{field_name}] is not ' '
+            and [{field_name}] is not '';"""
+    try:
+        occurence_count = run_query(sql, project_type)
+    except sqlite3.OperationalError:
+        occurence_count = [
+            f"Field '{field_name}' not found in '{table_name}'",
+        ]
+
+    sql = f"""select count(*) as 'N' from
+    (select distinct [{field_name}] from [{table_name}]
+    where [{field_name}] is not NULL
+            and [{field_name}] is not ' '
+            and [{field_name}] is not ''
+    );"""
+
+    try:
+        distinct_vals = run_query(sql, project_type)
+    except sqlite3.OperationalError:
+        distinct_vals = [
+            f"Field '{field_name}' not found in '{table_name}'",
+        ]
+
+
+    sql = f"""select count(*) as 'N' from
+    (select distinct [PRJ_CD] from [{table_name}]
+    where [{field_name}] is not NULL
+            and [{field_name}] is not ' '
+            and [{field_name}] is not ''
+    );"""
+
+    try:
+        prj_cds = run_query(sql, project_type)
+    except sqlite3.OperationalError:
+        prj_cds = [
+            f"Field '{field_name}' not found in '{table_name}'",
+        ]
+
+    sql = f"""select [PRJ_CD], count() as N from [{table_name}]
+            where [{field_name}] is not NULL
+            and [{field_name}] is not ' '
+            and [{field_name}] is not ''
+            Group by [PRJ_CD]
+            order by count([PRJ_CD]) desc;"""
+
+    try:
+        project_counts = run_query(sql, project_type)
+    except sqlite3.OperationalError:
+        project_counts = [
+            f"Field '{field_name}' not found in '{table_name}'",
+        ]
+
+    sql = f"""select [{field_name}] as value, count([{field_name}]) as N from [{table_name}]
+            group by [{field_name}]
+            having [{field_name}] is not NULL
+            and [{field_name}] is not ' '
+            and [{field_name}] is not ''
+            order by count([{field_name}]) desc limit 100;"""
+
+    try:
+        common_values = run_query(sql, project_type)
+    except sqlite3.OperationalError:
+        common_values = [
+            f"Field '{field_name}' not found in '{table_name}'",
+        ]
+
+    return {
+        "occurence_count": occurence_count[0],
+        "distinct_values": distinct_vals[0],
+        "prj_cds": prj_cds[0],
+        "project_counts": list(project_counts),
+        "common_values": list(common_values),
+    }
+
+
+
+
