@@ -1,7 +1,18 @@
 import React, { useContext } from 'react';
 import { useQuery } from 'react-query';
 
-import { Container, Grid, Loader, Message, Segment } from 'semantic-ui-react';
+import {
+  Alert,
+  AlertDescription,
+  AlertIcon,
+  AlertTitle,
+  Box,
+  Flex,
+  HStack,
+  VStack,
+  Heading,
+  Spinner,
+} from '@chakra-ui/react';
 
 import StatsSideBar from '../components/StatsSideBar';
 import { ProjectTypeContext } from '../contexts/ProjectTypeContext';
@@ -28,52 +39,61 @@ export default function FieldStats() {
 
   if (error) {
     return (
-      <Message negative>
-        <Message.Header>Aw Snap!</Message.Header>
-        <p>Something went wrong</p>
-      </Message>
+      <Alert
+        status="error"
+        variant="subtle"
+        flexDirection="column"
+        alignItems="center"
+        justifyContent="center"
+        textAlign="center"
+        height="200px"
+      >
+        <AlertIcon boxSize="40px" mr={0} />
+        <AlertTitle mt={4} mb={1} fontSize="lg">
+          Aw Snap!
+        </AlertTitle>
+        <AlertDescription maxWidth="sm">Something went wrong!</AlertDescription>
+      </Alert>
     );
   }
 
   return (
-    <Grid.Row>
-      <Grid.Column width={3}>
+    <HStack align="top" spacing="30px" flex="1">
+      <Flex width="250px">
         <StatsSideBar />
-      </Grid.Column>
-      <Grid.Column width={13}>
-        <Grid.Row>
-          <Container>
-            {selectedField ? (
-              isFetching ? (
-                <div>
-                  <h3>
-                    <em>
-                      Fetching Data for "{selectedField}" from the
-                      {selectedTable} table
-                    </em>
-                  </h3>
-                  <Segment basic size="massive" padded="very">
-                    <Loader active size="massive"></Loader>
-                  </Segment>
-                </div>
-              ) : (
-                <ShowFieldStats data={data} />
-              )
-            ) : (
-              <Message>
-                <Message.Header>Select A Field</Message.Header>
-                <Message.List>
-                  <Message.Item>
-                    Select a field from the menu on the left to see a summary
-                    how and when it has been used in the {selectedTable} of{' '}
-                    {projectType} projects.
-                  </Message.Item>
-                </Message.List>
-              </Message>
-            )}
-          </Container>
-        </Grid.Row>
-      </Grid.Column>
-    </Grid.Row>
+      </Flex>
+      <Box flex="1">
+        {selectedField ? (
+          isFetching ? (
+            <Flex>
+              <VStack mt="20px" flex="1" spacing="25px">
+                <Heading as="h4" size="md">
+                  <em>
+                    Fetching Data for "{selectedField}" from the {selectedTable}{' '}
+                    table
+                  </em>
+                </Heading>
+                <Spinner size="xl" />
+              </VStack>
+            </Flex>
+          ) : (
+            <ShowFieldStats data={data} />
+          )
+        ) : (
+          <Flex align="center" border="1px" p={25} borderRadius={15}>
+            <VStack flex="1">
+              <Heading as="h2" size="md">
+                Select A Field
+              </Heading>
+              <Flex pt={4}>
+                Select a field from the menu on the left to see a summary of how
+                and when that field has been used in the {selectedTable} of{' '}
+                {projectType} projects.
+              </Flex>
+            </VStack>
+          </Flex>
+        )}
+      </Box>
+    </HStack>
   );
 }

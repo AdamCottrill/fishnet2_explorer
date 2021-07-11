@@ -7,6 +7,7 @@ import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
 import TableContents from './pages/TableContents';
 import FieldStats from './pages/FieldStats';
 
+import Nav from './components/Nav'
 import { ProjectTypeContext } from './contexts/ProjectTypeContext';
 import { TableContext } from './contexts/TableContext';
 
@@ -23,14 +24,7 @@ function App() {
       <div className="App">
         <Container fluid>
           <div>
-            <List horizontal>
-              <List.Item>
-                <Link to="/">Table Explorer</Link>
-              </List.Item>
-              <List.Item>
-                <Link to="/field_stats">Field Stats</Link>
-              </List.Item>
-            </List>
+            <Nav />
 
             <Grid>
               <Grid.Row>
