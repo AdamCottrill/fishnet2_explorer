@@ -1,6 +1,7 @@
 import React, { useState, useContext, useEffect } from 'react';
-import { Form } from 'semantic-ui-react';
 import { useQuery } from 'react-query';
+
+import InputStack from '../InputStack';
 
 import { ProjectTypeContext } from '../../contexts/ProjectTypeContext';
 import { TableContext } from '../../contexts/TableContext';
@@ -46,19 +47,12 @@ const SideBarFieldContains = (props) => {
   return (
     <div>
       {data && (
-        <Form size="mini">
-          {data.fields.map((fld) => (
-            <Form.Input
-              value={localFilters[fld] ? localFilters[fld] : ''}
-              type="text"
-              key={fld}
-              name={fld}
-              placeholder={`${fld} contains...`}
-              onChange={handleChange}
-              onBlur={handleBlur}
-            />
-          ))}
-        </Form>
+        <InputStack
+          fields={data.fields}
+          filters={localFilters}
+          handleBlur={handleBlur}
+          handleChange={handleChange}
+        />
       )}
     </div>
   );

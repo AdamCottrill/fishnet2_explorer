@@ -1,10 +1,11 @@
 import React, { useContext } from 'react';
 import { useQuery } from 'react-query';
-import { Form } from 'semantic-ui-react';
 
 import { ProjectTypeContext } from '../../contexts/ProjectTypeContext';
 import { TableContext } from '../../contexts/TableContext';
 import { FiltersContext } from '../../contexts/FiltersContext';
+
+import CheckboxStack from '../CheckboxStack';
 
 import { getTableFields } from '../../services/api';
 
@@ -35,18 +36,11 @@ const SideBarFieldNotNull = (props) => {
   return (
     <div>
       {data && (
-        <Form style={{ textAlign: 'left' }} size="mini">
-          {data.fields.map((field) => (
-            <Form.Checkbox
-              size="mini"
-              key={field}
-              label={field}
-              value={field}
-              checked={filters.notNull.includes(field)}
-              onChange={() => toggleFieldState(field)}
-            />
-          ))}
-        </Form>
+        <CheckboxStack
+          fields={data.fields}
+          filters={filters}
+          toggleFieldState={toggleFieldState}
+        />
       )}
     </div>
   );

@@ -3,7 +3,7 @@ import { Input } from '@chakra-ui/react';
 import RadioButtons from './RadioButtons';
 
 export default function SidebarRadioInput(props) {
-  const { name, items, selectedItem, setSelectedItem } = props;
+  const { name, items, placeholder, selectedItem, setSelectedItem } = props;
 
   const [itemFilter, setItemFilter] = useState('');
 
@@ -25,7 +25,7 @@ export default function SidebarRadioInput(props) {
         size="sm"
         margin={1}
         rounded="full"
-        placeholder="Filter fields..."
+        placeholder={placeholder ? placeholder : 'Filter fields...'}
         onChange={(e) => setItemFilter(e.target.value)}
       />
 

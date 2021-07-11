@@ -7,7 +7,7 @@ import { ProjectTypeContext } from '../../contexts/ProjectTypeContext';
 import { FieldsContext } from '../../contexts/FieldsContext';
 import { getTableFields } from '../../services/api';
 
-import FieldsCheckBoxes from './FieldsCheckBoxes';
+import CheckboxStack from '../CheckboxStack';
 
 const SideBarFieldList = (props) => {
   // when the selectedTable changes - update the list of fields in state
@@ -36,7 +36,7 @@ const SideBarFieldList = (props) => {
   return (
     <div>
       {data && (
-        <FieldsCheckBoxes
+        <CheckboxStack
           fields={data.fields}
           toggleFieldState={toggleFieldState}
         />

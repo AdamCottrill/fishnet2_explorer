@@ -30,6 +30,7 @@ const SideBarTableRadioButtons = (props) => {
     <div>
       <SidebarRadioInput
         name="project-type-radio-buttons"
+        placeholder="Filter tables...."
         items={data.tables}
         selectedItem={selectedTable}
         setSelectedItem={setSelectedTable}

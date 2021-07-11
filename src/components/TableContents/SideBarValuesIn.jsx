@@ -1,10 +1,11 @@
 import React, { useState, useContext, useEffect } from 'react';
-import { Form } from 'semantic-ui-react';
 import { useQuery } from 'react-query';
 
 import { ProjectTypeContext } from '../../contexts/ProjectTypeContext';
 import { TableContext } from '../../contexts/TableContext';
 import { FiltersContext } from '../../contexts/FiltersContext';
+
+import InputStack from '../InputStack';
 
 import { getTableFields } from '../../services/api';
 
@@ -46,19 +47,12 @@ const SideBarValuesIn = (props) => {
   return (
     <div>
       {data && (
-        <Form size="mini">
-          {data.fields.map((fld) => (
-            <Form.Input
-              key={fld}
-              value={localFilters[fld] ? localFilters[fld] : ''}
-              type="text"
-              name={fld}
-              placeholder={`${fld} values in...`}
-              onChange={handleChange}
-              onBlur={handleBlur}
-            />
-          ))}
-        </Form>
+        <InputStack
+          fields={data.fields}
+          filters={localFilters}
+          handleBlur={handleBlur}
+          handleChange={handleChange}
+        />
       )}
     </div>
   );

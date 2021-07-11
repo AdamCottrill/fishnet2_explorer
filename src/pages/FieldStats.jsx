@@ -87,8 +87,8 @@ export default function FieldStats() {
               </Heading>
               <Flex pt={4}>
                 Select a field from the menu on the left to see a summary of how
-                and when that field has been used in the {selectedTable} of{' '}
-                {projectType} projects.
+                and when that field has been used in the {selectedTable} table
+                of {projectType} projects.
               </Flex>
             </VStack>
           </Flex>

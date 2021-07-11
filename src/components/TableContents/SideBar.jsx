@@ -1,9 +1,16 @@
-import React, { useState } from 'react';
+import React from 'react';
 
-import { Accordion, Icon } from 'semantic-ui-react';
+import {
+  Box,
+  Accordion,
+  AccordionItem,
+  AccordionButton,
+  AccordionPanel,
+  AccordionIcon,
+} from '@chakra-ui/react';
 
 import SideBarProjectType from '../SideBarProjectType';
-import SideBarTableList from './SideBarTableList';
+import SideBarTableRadioButtons from '../SideBarTableRadioButtons';
 
 import SideBarFieldList from './SideBarFieldList';
 import SideBarFieldContains from './SideBarFieldContains';
@@ -11,101 +18,104 @@ import SideBarValuesIn from './SideBarValuesIn';
 import SideBarFieldNotNull from './SideBarFieldNotNull';
 import SideBarProjectCount from './SideBarProjectCount';
 const SideBar = (props) => {
-  const [activeIndex, setActiveIndex] = useState(-1);
-
-  const handleAccordionClick = (e, { index }) => {
-    const newIndex = activeIndex === index ? -1 : index;
-    setActiveIndex(newIndex);
-  };
-
   return (
     <>
       <h3>Refine By:</h3>
 
-      <Accordion styled>
-        <Accordion.Title
-          active={activeIndex === 99}
-          index={99}
-          onClick={handleAccordionClick}
-        >
-          <Icon name="dropdown" />
-          Project Type
-        </Accordion.Title>
-        <Accordion.Content active={activeIndex === 99}>
-          <SideBarProjectType />
-        </Accordion.Content>
+      <Accordion m={2} allowToggle width="100%">
+        <AccordionItem>
+          <h2>
+            <AccordionButton>
+              <Box flex="1" textAlign="left">
+                Project Type
+              </Box>
+              <AccordionIcon />
+            </AccordionButton>
+          </h2>
+          <AccordionPanel pb={4}>
+            <SideBarProjectType />
+          </AccordionPanel>
+        </AccordionItem>
 
-        <Accordion.Title
-          active={activeIndex === 0}
-          index={0}
-          onClick={handleAccordionClick}
-        >
-          <Icon name="dropdown" />
-          Tables
-        </Accordion.Title>
-        <Accordion.Content active={activeIndex === 0}>
-          <SideBarTableList />
-        </Accordion.Content>
+        <AccordionItem>
+          <h2>
+            <AccordionButton>
+              <Box flex="1" textAlign="left">
+                Tables
+              </Box>
+              <AccordionIcon />
+            </AccordionButton>
+          </h2>
+          <AccordionPanel pb={4}>
+            <SideBarTableRadioButtons />
+          </AccordionPanel>
+        </AccordionItem>
 
-        <Accordion.Title
-          active={activeIndex === 1}
-          index={1}
-          onClick={handleAccordionClick}
-        >
-          <Icon name="dropdown" />
-          Hide Fields
-        </Accordion.Title>
-        <Accordion.Content active={activeIndex === 1}>
-          <SideBarFieldList />
-        </Accordion.Content>
-
-        <Accordion.Title
-          active={activeIndex === 2}
-          index={2}
-          onClick={handleAccordionClick}
-        >
-          <Icon name="dropdown" />
-          Field Contains...
-        </Accordion.Title>
-        <Accordion.Content active={activeIndex === 2}>
-          <SideBarFieldContains />
-        </Accordion.Content>
-
-        <Accordion.Title
-          active={activeIndex === 3}
-          index={3}
-          onClick={handleAccordionClick}
-        >
-          <Icon name="dropdown" />
-          Field Value in...
-        </Accordion.Title>
-        <Accordion.Content active={activeIndex === 3}>
-          <SideBarValuesIn />
-        </Accordion.Content>
-
-        <Accordion.Title
-          active={activeIndex === 4}
-          index={4}
-          onClick={handleAccordionClick}
-        >
-          <Icon name="dropdown" />
-          Field Is Not Null
-        </Accordion.Title>
-        <Accordion.Content active={activeIndex === 4}>
-          <SideBarFieldNotNull />
-        </Accordion.Content>
-
-        <Accordion.Title
-          active={activeIndex === 5}
-          index={5}
-          onClick={handleAccordionClick}
-        >
-          <Icon name="dropdown" />
-          Project Count
-        </Accordion.Title>
-        <Accordion.Content active={activeIndex === 5}>
-          <SideBarProjectCount />
-        </Accordion.Content>
+        <AccordionItem>
+          <h2>
+            <AccordionButton>
+              <Box flex="1" textAlign="left">
+                Hide Fields
+              </Box>
+              <AccordionIcon />
+            </AccordionButton>
+          </h2>
+          <AccordionPanel pb={4}>
+            <SideBarFieldList />
+          </AccordionPanel>
+        </AccordionItem>
+        <AccordionItem>
+          <h2>
+            <AccordionButton>
+              <Box flex="1" textAlign="left">
+                Field Contains...
+              </Box>
+              <AccordionIcon />
+            </AccordionButton>
+          </h2>
+          <AccordionPanel pb={4}>
+            <SideBarFieldContains />
+          </AccordionPanel>
+        </AccordionItem>
+        <AccordionItem>
+          <h2>
+            <AccordionButton>
+              <Box flex="1" textAlign="left">
+                Field Value IN...
+              </Box>
+              <AccordionIcon />
+            </AccordionButton>
+          </h2>
+          <AccordionPanel pb={4}>
+            <SideBarValuesIn />
+          </AccordionPanel>
+        </AccordionItem>
+        <AccordionItem>
+          <h2>
+            <AccordionButton>
+              <Box flex="1" textAlign="left">
+                Field Is not NULL
+              </Box>
+              <AccordionIcon />
+            </AccordionButton>
+          </h2>
+          <AccordionPanel pb={4}>
+            <SideBarFieldNotNull />
+          </AccordionPanel>
+        </AccordionItem>
+        <AccordionItem>
+          <h2>
+            <AccordionButton>
+              <Box flex="1" textAlign="left">
+                Project Count
+              </Box>
+              <AccordionIcon />
+            </AccordionButton>
+          </h2>
+          <AccordionPanel pb={4}>
+            <SideBarProjectCount />
+          </AccordionPanel>
+        </AccordionItem>
       </Accordion>
     </>
   );

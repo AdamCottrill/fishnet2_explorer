@@ -1,8 +1,7 @@
-import React, { useState } from 'react';
+import React from 'react';
 
 import {
   Box,
-  Flex,
   Accordion,
   AccordionButton,
   AccordionIcon,
@@ -14,13 +13,6 @@ import SideBarTableRadioButtons from './SideBarTableRadioButtons';
 import SideBarFieldRadioButtons from './SideBarFieldRadioButtons';
 
 const StatsSideBar = (props) => {
-  const [activeIndex, setActiveIndex] = useState(-1);
-
-  const handleAccordionClick = (e, { index }) => {
-    const newIndex = activeIndex === index ? -1 : index;
-    setActiveIndex(newIndex);
-  };
-
   return (
     <Accordion m={2} allowToggle width="100%">
       <AccordionItem>
