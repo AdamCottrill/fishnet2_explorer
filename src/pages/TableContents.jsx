@@ -4,10 +4,11 @@ import { Grid } from 'semantic-ui-react';
 
 import { ProjectTypeContext } from '../contexts/ProjectTypeContext';
 import { TableContext } from '../contexts/TableContext';
-import SideBar from '../components/SideBar';
-import TableData from '../components/TableData';
-import ButtonBar from '../components/ButtonBar';
-import RecordCount from '../components/RecordCount';
+
+import SideBar from '../components/TableContents/SideBar';
+import TableData from '../components/TableContents/TableData';
+import ButtonBar from '../components/TableContents/ButtonBar';
+import RecordCount from '../components/TableContents/RecordCount';
 
 export default function TableContents() {
   const { selectedTable } = useContext(TableContext);

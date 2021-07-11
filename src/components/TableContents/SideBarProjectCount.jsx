@@ -2,11 +2,11 @@ import React, { useContext } from 'react';
 
 import { useQuery } from 'react-query';
 
-import { TableContext } from '../contexts/TableContext';
-import { ProjectTypeContext } from '../contexts/ProjectTypeContext';
-import { getProjectCount } from '../services/api';
-import { FiltersContext } from '../contexts/FiltersContext';
-import { filters2args } from '../utils';
+import { TableContext } from '../../contexts/TableContext';
+import { ProjectTypeContext } from '../../contexts/ProjectTypeContext';
+import { getProjectCount } from '../../services/api';
+import { FiltersContext } from '../../contexts/FiltersContext';
+import { filters2args } from '../../utils';
 
 const SideBarProjectCount = (props) => {
   // when the selectedTable changes - update the list of fields in state

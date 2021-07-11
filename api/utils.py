@@ -3,19 +3,22 @@ import pdb
 import sqlite3
 from collections import OrderedDict
 
-# FNDB = "F:/LOntario_data/LOMU_Projects.db"
-# FNDB = "C:/Users/COTTRILLAD/1work/Superior/warehouse/masters/IA_master.db"
-# FNDB = "/home/adam/Documents/sandbox/lhmu_warehouse.db"
-
-
+# DBS = {
+#     "all": "./databases/GrandGrandWazoo.db",
+#     "cfcd": "./databases/CFCD_projects.db",
+#     "iais": "./databases/IAIS_projects.db",
+#     "im": "./databases/IM_projects.db",
+#     "sc": "./databases/SC_projects.db",
+#     "sf": "./databases/SF_projects.db",
+#     "sd": "./databases/SD_projects.db",
+# }
 DBS = {
-    "all": "./databases/GrandGrandWazoo.db",
-    "cfcd": "./databases/CFCD_projects.db",
-    "iais": "./databases/IAIS_projects.db",
-    "im": "./databases/IM_projects.db",
-    "sc": "./databases/SC_projects.db",
-    "sf": "./databases/SF_projects.db",
-    "sd": "./databases/SD_projects.db",
+    all: "/home/adam/Documents/sandbox/IM_projects.db",
+    "iais": "/home/adam/Documents/sandbox/IM_projects.db",
+    "im": "/home/adam/Documents/sandbox/IM_projects.db",
+    "sc": "/home/adam/Documents/sandbox/IM_projects.db",
+    "sd": "/home/adam/Documents/sandbox/IM_projects.db",
+    "sf": "/home/adam/Documents/sandbox/IM_projects.db",
 }
 
 

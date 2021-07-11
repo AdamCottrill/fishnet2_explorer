@@ -1,30 +1,30 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext } from 'react';
 
-import { Form } from "semantic-ui-react";
+import { Form } from 'semantic-ui-react';
 
-import { useQuery } from "react-query";
-import { getTables } from "../services/api";
+import { useQuery } from 'react-query';
+import { getTables } from '../../services/api';
 
-import { ProjectTypeContext } from "../contexts/ProjectTypeContext";
-import { TableContext } from "../contexts/TableContext";
-import { FieldsContext } from "../contexts/FieldsContext";
+import { ProjectTypeContext } from '../../contexts/ProjectTypeContext';
+import { TableContext } from '../../contexts/TableContext';
+import { FieldsContext } from '../../contexts/FieldsContext';
 
 const SideBarTableList = () => {
   const { projectType } = useContext(ProjectTypeContext);
   const { data, error, isLoading, isFetching } = useQuery(
-    ["tableList", projectType],
+    ['tableList', projectType],
     () => getTables(projectType)
   );
 
-  const [tableFilter, setTableFilter] = useState("");
+  const [tableFilter, setTableFilter] = useState('');
 
   const { setSelectedTable } = useContext(TableContext);
   const { resetFields } = useContext(FieldsContext);
 
   const contains = (val, filter) => {
-    filter = filter ? filter.toUpperCase() : "";
-    val = val ? val.toUpperCase() : "";
-    if (filter === "") {
+    filter = filter ? filter.toUpperCase() : '';
+    val = val ? val.toUpperCase() : '';
+    if (filter === '') {
       return true;
     } else {
       return val.includes(filter) ? true : false;
@@ -33,7 +33,7 @@ const SideBarTableList = () => {
 
   const handleLinkClick = (e) => {
     e.preventDefault();
-    setTableFilter("");
+    setTableFilter('');
     resetFields();
     setSelectedTable(e.target.id);
   };

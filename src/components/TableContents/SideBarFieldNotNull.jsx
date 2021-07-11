@@ -1,12 +1,12 @@
-import React, { useContext } from "react";
-import { useQuery } from "react-query";
-import { Form } from "semantic-ui-react";
+import React, { useContext } from 'react';
+import { useQuery } from 'react-query';
+import { Form } from 'semantic-ui-react';
 
-import { ProjectTypeContext } from "../contexts/ProjectTypeContext";
-import { TableContext } from "../contexts/TableContext";
-import { FiltersContext } from "../contexts/FiltersContext";
+import { ProjectTypeContext } from '../../contexts/ProjectTypeContext';
+import { TableContext } from '../../contexts/TableContext';
+import { FiltersContext } from '../../contexts/FiltersContext';
 
-import { getTableFields } from "../services/api";
+import { getTableFields } from '../../services/api';
 
 const SideBarFieldNotNull = (props) => {
   // when the selectedTable changes - update the list of fields in state
@@ -16,7 +16,7 @@ const SideBarFieldNotNull = (props) => {
   const { filters, setNotNull } = useContext(FiltersContext);
 
   const { data, error, isLoading, isFetching } = useQuery(
-    ["getTableFields", projectType, selectedTable],
+    ['getTableFields', projectType, selectedTable],
     () => getTableFields(projectType, selectedTable)
   );
 
@@ -35,7 +35,7 @@ const SideBarFieldNotNull = (props) => {
   return (
     <div>
       {data && (
-        <Form style={{ textAlign: "left" }} size="mini">
+        <Form style={{ textAlign: 'left' }} size="mini">
           {data.fields.map((field) => (
             <Form.Checkbox
               size="mini"

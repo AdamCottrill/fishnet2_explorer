@@ -1,12 +1,12 @@
-import React, { useContext } from "react";
+import React, { useContext } from 'react';
 
-import { useQuery } from "react-query";
+import { useQuery } from 'react-query';
 
-import { FiltersContext } from "../contexts/FiltersContext";
+import { FiltersContext } from '../../contexts/FiltersContext';
 
-import { getRecordCount } from "../services/api";
+import { getRecordCount } from '../../services/api';
 
-import { filters2args } from "../utils";
+import { filters2args } from '../../utils';
 
 const RecordCount = ({ projectType, selectedTable }) => {
   const { filters } = useContext(FiltersContext);
@@ -14,7 +14,7 @@ const RecordCount = ({ projectType, selectedTable }) => {
   const args = filters2args(filters);
 
   const { data, error, isLoading } = useQuery(
-    ["record-count", projectType, selectedTable, args],
+    ['record-count', projectType, selectedTable, args],
     () => getRecordCount(projectType, selectedTable, args)
   );
 
@@ -29,7 +29,7 @@ const RecordCount = ({ projectType, selectedTable }) => {
   return (
     <div>
       Total Records:
-      {data ? data.values[0].records.toLocaleString() : "--"}
+      {data ? data.values[0].records.toLocaleString() : '--'}
     </div>
   );
 };

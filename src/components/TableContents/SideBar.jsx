@@ -2,12 +2,13 @@ import React, { useState } from 'react';
 
 import { Accordion, Icon } from 'semantic-ui-react';
 
+import SideBarProjectType from '../SideBarProjectType';
 import SideBarTableList from './SideBarTableList';
+
 import SideBarFieldList from './SideBarFieldList';
 import SideBarFieldContains from './SideBarFieldContains';
 import SideBarValuesIn from './SideBarValuesIn';
 import SideBarFieldNotNull from './SideBarFieldNotNull';
-import SideBarProjectType from './SideBarProjectType';
 import SideBarProjectCount from './SideBarProjectCount';
 const SideBar = (props) => {
   const [activeIndex, setActiveIndex] = useState(-1);

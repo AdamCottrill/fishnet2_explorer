@@ -1,8 +1,16 @@
 import React, { useState } from 'react';
 
-import { Accordion, Icon } from 'semantic-ui-react';
+import {
+  Box,
+  Flex,
+  Accordion,
+  AccordionButton,
+  AccordionIcon,
+  AccordionPanel,
+  AccordionItem,
+} from '@chakra-ui/react';
 import SideBarProjectType from './SideBarProjectType';
-import SideBarTableList from './SideBarTableList';
+import SideBarTableRadioButtons from './SideBarTableRadioButtons';
 import SideBarFieldRadioButtons from './SideBarFieldRadioButtons';
 
 const StatsSideBar = (props) => {
@@ -14,45 +22,48 @@ const StatsSideBar = (props) => {
   };
 
   return (
-    <>
-      <Accordion styled>
-        <Accordion.Title
-          active={activeIndex === 99}
-          index={99}
-          onClick={handleAccordionClick}
-        >
-          <Icon name="dropdown" />
-          Project Type
-        </Accordion.Title>
-        <Accordion.Content active={activeIndex === 99}>
+    <Accordion m={2} allowToggle width="100%">
+      <AccordionItem>
+        <h2>
+          <AccordionButton>
+            <Box flex="1" textAlign="left">
+              Project Type
+            </Box>
+            <AccordionIcon />
+          </AccordionButton>
+        </h2>
+        <AccordionPanel pb={4}>
           <SideBarProjectType />
-        </Accordion.Content>
+        </AccordionPanel>
+      </AccordionItem>
 
-        <Accordion.Title
-          active={activeIndex === 0}
-          index={0}
-          onClick={handleAccordionClick}
-        >
-          <Icon name="dropdown" />
-          Tables
-        </Accordion.Title>
-        <Accordion.Content active={activeIndex === 0}>
-          <SideBarTableList />
-        </Accordion.Content>
-
-        <Accordion.Title
-          active={activeIndex === 1}
-          index={1}
-          onClick={handleAccordionClick}
-        >
-          <Icon name="dropdown" />
-          Available Fields
-        </Accordion.Title>
-        <Accordion.Content active={activeIndex === 1}>
+      <AccordionItem>
+        <h2>
+          <AccordionButton>
+            <Box flex="1" textAlign="left">
+              Tables
+            </Box>
+            <AccordionIcon />
+          </AccordionButton>
+        </h2>
+        <AccordionPanel pb={4}>
+          <SideBarTableRadioButtons />
+        </AccordionPanel>
+      </AccordionItem>
+      <AccordionItem>
+        <h2>
+          <AccordionButton>
+            <Box flex="1" textAlign="left">
+              Fields
+            </Box>
+            <AccordionIcon />
+          </AccordionButton>
+        </h2>
+        <AccordionPanel pb={4}>
           <SideBarFieldRadioButtons />
-        </Accordion.Content>
-      </Accordion>
-    </>
+        </AccordionPanel>
+      </AccordionItem>
+    </Accordion>
   );
 };
 

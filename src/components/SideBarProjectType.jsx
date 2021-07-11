@@ -1,13 +1,12 @@
-import React, { useContext } from "react";
+import React, { useContext } from 'react';
 
-import { ProjectTypeContext } from "../contexts/ProjectTypeContext";
-import { Segment, Form, Radio } from "semantic-ui-react";
+import { ProjectTypeContext } from '../contexts/ProjectTypeContext';
 
-import { projectTypes } from "../utils";
+import { Flex, RadioGroup, Radio, Stack } from '@chakra-ui/react';
+
+import { projectTypes } from '../utils';
 
 const SideBarProjectType = (props) => {
-  //const [projectType, setProjectType] = useState("All");
-
   const { projectType, setProjectType } = useContext(ProjectTypeContext);
 
   const handleChange = (event, { value }) => {
@@ -15,21 +14,21 @@ const SideBarProjectType = (props) => {
   };
 
   return (
-    <Segment basic>
-      <Form size="mini" style={{ textAlign: "left" }}>
-        {projectTypes.map(([ptype, label]) => (
-          <Form.Field key={ptype}>
-            <Radio
-              label={label}
-              name="projetTypeGroup"
-              value={ptype}
-              checked={projectType === ptype}
-              onChange={handleChange}
-            />
-          </Form.Field>
-        ))}
-      </Form>
-    </Segment>
+    <Flex>
+      <RadioGroup
+        name="project-type-radio-buttons"
+        defaultValue={projectType}
+        onChange={handleChange}
+      >
+        <Stack px={2}>
+          {projectTypes.map(([ptype, label]) => (
+            <Radio size="sm" value={ptype}>
+              {label}
+            </Radio>
+          ))}
+        </Stack>
+      </RadioGroup>
+    </Flex>
   );
 };
 

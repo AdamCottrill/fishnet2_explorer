@@ -80,7 +80,7 @@ export default function FieldStats() {
             <ShowFieldStats data={data} />
           )
         ) : (
-          <Flex align="center" border="1px" p={25} borderRadius={15}>
+          <Flex align="center" border="1px" p={25} borderRadius={15} m={10}>
             <VStack flex="1">
               <Heading as="h2" size="md">
                 Select A Field

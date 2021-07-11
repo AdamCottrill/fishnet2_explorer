@@ -1,14 +1,14 @@
 import React, { useContext } from 'react';
 import { useQuery } from 'react-query';
 
-import { getTableData } from '../services/api';
+import { getTableData } from '../../services/api';
 //import SortableTable from './SortableTable';
 import ModalTable from './ModalTable';
 
-import { FieldsContext } from '../contexts/FieldsContext';
-import { FiltersContext } from '../contexts/FiltersContext';
+import { FieldsContext } from '../../contexts/FieldsContext';
+import { FiltersContext } from '../../contexts/FiltersContext';
 
-import { filters2args } from '../utils';
+import { filters2args } from '../../utils';
 
 const TableData = ({ projectType, selectedTable }) => {
   const { excludedFields } = useContext(FieldsContext);

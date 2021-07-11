@@ -1,12 +1,11 @@
-import React, { useContext } from "react";
+import React, { useContext } from 'react';
 
-import { Button, Icon, Segment } from "semantic-ui-react";
-import { FiltersContext } from "../contexts/FiltersContext";
+import { Button, Icon, Segment } from 'semantic-ui-react';
+import { FiltersContext } from '../../contexts/FiltersContext';
 
 const ButtonBar = (props) => {
-  const { filters, delNotNull, delValuesIn, delFieldContains } = useContext(
-    FiltersContext
-  );
+  const { filters, delNotNull, delValuesIn, delFieldContains } =
+    useContext(FiltersContext);
 
   const NotNullButtons = ({ values }) => {
     return values.map((value) => (
@@ -25,7 +24,7 @@ const ButtonBar = (props) => {
 
   const ValuesInButtons = ({ values }) => {
     if (Object.keys(values).length === 0) {
-      return "";
+      return '';
     }
 
     return Object.entries(values).map(([key, value]) => (
@@ -44,7 +43,7 @@ const ButtonBar = (props) => {
 
   const ValuesContainButtons = ({ values }) => {
     if (Object.keys(values).length === 0) {
-      return "";
+      return '';
     }
 
     return Object.entries(values).map(([key, value]) => (
@@ -67,7 +66,7 @@ const ButtonBar = (props) => {
       {filters.fieldContains && (
         <ValuesContainButtons values={filters.fieldContains} />
       )}
-      {filters.notNull ? <NotNullButtons values={filters.notNull} /> : ""}
+      {filters.notNull ? <NotNullButtons values={filters.notNull} /> : ''}
     </Segment>
   );
 };

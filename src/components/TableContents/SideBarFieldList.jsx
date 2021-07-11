@@ -1,13 +1,13 @@
-import React, { useContext } from "react";
+import React, { useContext } from 'react';
 
-import { useQuery } from "react-query";
+import { useQuery } from 'react-query';
 
-import { TableContext } from "../contexts/TableContext";
-import { ProjectTypeContext } from "../contexts/ProjectTypeContext";
-import { FieldsContext } from "../contexts/FieldsContext";
-import { getTableFields } from "../services/api";
+import { TableContext } from '../../contexts/TableContext';
+import { ProjectTypeContext } from '../../contexts/ProjectTypeContext';
+import { FieldsContext } from '../../contexts/FieldsContext';
+import { getTableFields } from '../../services/api';
 
-import FieldsCheckBoxes from "./FieldsCheckBoxes";
+import FieldsCheckBoxes from './FieldsCheckBoxes';
 
 const SideBarFieldList = (props) => {
   // when the selectedTable changes - update the list of fields in state
@@ -17,7 +17,7 @@ const SideBarFieldList = (props) => {
   const { setFields } = useContext(FieldsContext);
 
   const { data, error, isLoading, isFetching } = useQuery(
-    ["getTableFields", projectType, selectedTable],
+    ['getTableFields', projectType, selectedTable],
     () => getTableFields(projectType, selectedTable)
   );
 

@@ -1,12 +1,12 @@
-import React, { useState, useContext, useEffect } from "react";
-import { Form } from "semantic-ui-react";
-import { useQuery } from "react-query";
+import React, { useState, useContext, useEffect } from 'react';
+import { Form } from 'semantic-ui-react';
+import { useQuery } from 'react-query';
 
-import { ProjectTypeContext } from "../contexts/ProjectTypeContext";
-import { TableContext } from "../contexts/TableContext";
-import { FiltersContext } from "../contexts/FiltersContext";
+import { ProjectTypeContext } from '../../contexts/ProjectTypeContext';
+import { TableContext } from '../../contexts/TableContext';
+import { FiltersContext } from '../../contexts/FiltersContext';
 
-import { getTableFields } from "../services/api";
+import { getTableFields } from '../../services/api';
 
 const SideBarValuesIn = (props) => {
   // when the selectedTable changes - update the list of fields in state
@@ -23,7 +23,7 @@ const SideBarValuesIn = (props) => {
   }, [filters, setLocalFilters]);
 
   const { data, error, isLoading, isFetching } = useQuery(
-    ["getTableFields", projectType, selectedTable],
+    ['getTableFields', projectType, selectedTable],
     () => getTableFields(projectType, selectedTable)
   );
 
@@ -50,7 +50,7 @@ const SideBarValuesIn = (props) => {
           {data.fields.map((fld) => (
             <Form.Input
               key={fld}
-              value={localFilters[fld] ? localFilters[fld] : ""}
+              value={localFilters[fld] ? localFilters[fld] : ''}
               type="text"
               name={fld}
               placeholder={`${fld} values in...`}

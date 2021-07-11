@@ -5,8 +5,8 @@ import { useTable } from 'react-table';
 
 import { Button } from 'semantic-ui-react';
 
-import { TableContext } from '../contexts/TableContext';
-import { ProjectTypeContext } from '../contexts/ProjectTypeContext';
+import { TableContext } from '../../contexts/TableContext';
+import { ProjectTypeContext } from '../../contexts/ProjectTypeContext';
 
 const ModalTable = ({ columns, data }) => {
   const { getTableProps, headerGroups, rows, prepareRow } = useTable({

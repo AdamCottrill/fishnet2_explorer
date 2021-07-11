@@ -25,7 +25,10 @@ export default function ShowFieldStats(props) {
     <Flex mt={10}>
       <VStack flex="1">
         <Flex>
-          {data.occurence_count && data.distinct_values && data.prj_cds ? (
+          {data.occurence_count &&
+          data.occurence_count.N &&
+          data.distinct_values &&
+          data.prj_cds ? (
             <Heading as="h3" size="md">
               <strong>"{selectedField}"</strong> appears in{' '}
               {data.occurence_count.N.toLocaleString()} record
