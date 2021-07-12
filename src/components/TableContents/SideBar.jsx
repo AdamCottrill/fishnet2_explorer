@@ -7,6 +7,7 @@ import {
   AccordionButton,
   AccordionPanel,
   AccordionIcon,
+  VStack,
 } from '@chakra-ui/react';
 
 import SideBarProjectType from '../SideBarProjectType';
@@ -19,10 +20,10 @@ import SideBarFieldNotNull from './SideBarFieldNotNull';
 import SideBarProjectCount from './SideBarProjectCount';
 const SideBar = (props) => {
   return (
-    <>
+    <VStack flex="1">
       <h3>Refine By:</h3>
 
-      <Accordion m={2} allowToggle width="100%">
+      <Accordion m={2} allowToggle>
         <AccordionItem>
           <h2>
             <AccordionButton>
@@ -117,7 +118,7 @@ const SideBar = (props) => {
           </AccordionPanel>
         </AccordionItem>
       </Accordion>
-    </>
+    </VStack>
   );
 };
 

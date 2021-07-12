@@ -1,6 +1,8 @@
 import React, { useContext } from 'react';
 
-import { Button, Icon, Segment } from 'semantic-ui-react';
+import { Button, HStack } from '@chakra-ui/react';
+import { SmallCloseIcon } from '@chakra-ui/icons';
+
 import { FiltersContext } from '../../contexts/FiltersContext';
 
 const ButtonBar = (props) => {
@@ -11,13 +13,14 @@ const ButtonBar = (props) => {
     return values.map((value) => (
       <Button
         key={value}
-        size="mini"
-        color="red"
-        icon
+        size="xs"
+        colorScheme="red"
+        px={2}
+        rounded="full"
         onClick={() => delNotNull(value)}
-        labelPosition="right"
+        rightIcon={<SmallCloseIcon />}
       >
-        {value} Not NULL <Icon name="x" />
+        {value} Not NULL
       </Button>
     ));
   };
@@ -30,13 +33,14 @@ const ButtonBar = (props) => {
     return Object.entries(values).map(([key, value]) => (
       <Button
         key={value}
-        size="mini"
-        color="yellow"
-        icon
+        size="xs"
+        colorScheme="yellow"
+        px={2}
+        rounded="full"
         onMouseUp={() => delValuesIn(key)}
-        labelPosition="right"
+        rightIcon={<SmallCloseIcon />}
       >
-        {`${key}=${value}`} <Icon name="x" />
+        {`${key}=${value}`}
       </Button>
     ));
   };
@@ -49,25 +53,26 @@ const ButtonBar = (props) => {
     return Object.entries(values).map(([key, value]) => (
       <Button
         key={value}
-        size="mini"
-        color="blue"
-        icon
+        size="xs"
+        p={2}
+        colorScheme="blue"
+        rounded="full"
+        rightIcon={<SmallCloseIcon />}
         onMouseUp={() => delFieldContains(key)}
-        labelPosition="right"
       >
-        {`${key}=*${value}*`} <Icon name="x" />
+        {`${key}=*${value}*`}{' '}
       </Button>
     ));
   };
 
   return (
-    <Segment basic>
+    <HStack my={2} spacing={2}>
       {filters.valuesIn && <ValuesInButtons values={filters.valuesIn} />}
       {filters.fieldContains && (
         <ValuesContainButtons values={filters.fieldContains} />
       )}
       {filters.notNull ? <NotNullButtons values={filters.notNull} /> : ''}
-    </Segment>
+    </HStack>
   );
 };
 

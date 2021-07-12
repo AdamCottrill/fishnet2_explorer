@@ -3,7 +3,7 @@ import React from 'react';
 import { Checkbox, Stack } from '@chakra-ui/react';
 
 export default function CheckboxStack(props) {
-  const { fields, filters, toggleFieldState } = props;
+  const { fields, toggleFieldState } = props;
 
   return (
     <Stack>

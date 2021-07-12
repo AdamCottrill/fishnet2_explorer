@@ -2,8 +2,7 @@ import React, { useContext } from 'react';
 import { useQuery } from 'react-query';
 
 import { getTableData } from '../../services/api';
-//import SortableTable from './SortableTable';
-import ModalTable from './ModalTable';
+import SortableTable from './SortableTable';
 
 import { FieldsContext } from '../../contexts/FieldsContext';
 import { FiltersContext } from '../../contexts/FiltersContext';
@@ -51,7 +50,7 @@ const TableData = ({ projectType, selectedTable }) => {
 
   const columns = makeColumns(data.data[0]);
 
-  return <div>{data && <ModalTable columns={columns} data={data.data} />}</div>;
+  return <>{data && <SortableTable columns={columns} data={data.data} />}</>;
 };
 
 export default TableData;

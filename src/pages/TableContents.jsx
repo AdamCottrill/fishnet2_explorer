@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 
-import { Grid } from 'semantic-ui-react';
+import { Box, Flex, HStack, VStack } from '@chakra-ui/react';
 
 import { ProjectTypeContext } from '../contexts/ProjectTypeContext';
 import { TableContext } from '../contexts/TableContext';
@@ -15,24 +15,33 @@ export default function TableContents() {
   const { projectType } = useContext(ProjectTypeContext);
 
   return (
-    <Grid.Row>
-      <Grid.Column width={3}>
+    <HStack
+      align="top"
+      flex="1"
+      spacing="30px"
+      maxWidth="100%"
+      overflowX="auto"
+    >
+      <Flex width="250px">
         <SideBar />
-      </Grid.Column>
-      <Grid.Column width={13}>
-        <Grid.Row>
-          <Grid.Column width={3}>
+      </Flex>
+      <Flex>
+        <VStack>
+          <Box maxWidth="100%">
             <RecordCount
               projectType={projectType}
               selectedTable={selectedTable}
             />
-          </Grid.Column>
-          <Grid.Column width={13}>
             <ButtonBar />
-          </Grid.Column>
-        </Grid.Row>
-        <TableData projectType={projectType} selectedTable={selectedTable} />
-      </Grid.Column>
-    </Grid.Row>
+          </Box>
+          <HStack>
+            <TableData
+              projectType={projectType}
+              selectedTable={selectedTable}
+            />
+          </HStack>
+        </VStack>
+      </Flex>
+    </HStack>
   );
 }

@@ -2,8 +2,8 @@ import { useContext } from 'react';
 
 import './App.css';
 
-import { Container, List, Grid } from 'semantic-ui-react';
-import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
+
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import TableContents from './pages/TableContents';
 import FieldStats from './pages/FieldStats';
 
@@ -22,19 +22,11 @@ function App() {
   return (
     <Router>
       <div className="App">
-        <Container fluid>
-          <div>
             <Nav />
-
-            <Grid>
-              <Grid.Row>
-                <Grid.Column textAlign="center">
                   <h2>
                     <div>ProjectType: {projectTypeLabel[1]} </div>
                     <div>Table: {selectedTable}</div>
                   </h2>
-                </Grid.Column>
-              </Grid.Row>
 
               <Switch>
                 <Route path="/field_stats">
@@ -44,9 +36,7 @@ function App() {
                   <TableContents />
                 </Route>
               </Switch>
-            </Grid>
-          </div>
-        </Container>
+
       </div>
     </Router>
   );
