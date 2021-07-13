@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 
-import { Box, Flex, HStack, VStack } from '@chakra-ui/react';
+import { Box, Center, Flex, HStack, VStack } from '@chakra-ui/react';
 
 import { ProjectTypeContext } from '../contexts/ProjectTypeContext';
 import { TableContext } from '../contexts/TableContext';
@@ -15,33 +15,22 @@ export default function TableContents() {
   const { projectType } = useContext(ProjectTypeContext);
 
   return (
-    <HStack
-      align="top"
-      flex="1"
-      spacing="30px"
-      maxWidth="100%"
-      overflowX="auto"
-    >
+    <HStack align="top" flex="1" spacing="30px">
       <Flex width="250px">
         <SideBar />
       </Flex>
-      <Flex>
-        <VStack>
-          <Box maxWidth="100%">
-            <RecordCount
-              projectType={projectType}
-              selectedTable={selectedTable}
-            />
+      <VStack alignItems="left">
+        <Box width="1200px">
+          <RecordCount
+            projectType={projectType}
+            selectedTable={selectedTable}
+          />
+          <Center>
             <ButtonBar />
-          </Box>
-          <HStack>
-            <TableData
-              projectType={projectType}
-              selectedTable={selectedTable}
-            />
-          </HStack>
-        </VStack>
-      </Flex>
+          </Center>
+        </Box>
+        <TableData projectType={projectType} selectedTable={selectedTable} />
+      </VStack>
     </HStack>
   );
 }

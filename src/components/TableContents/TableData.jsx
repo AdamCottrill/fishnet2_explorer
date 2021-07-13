@@ -6,7 +6,7 @@ import SortableTable from './SortableTable';
 
 import { FieldsContext } from '../../contexts/FieldsContext';
 import { FiltersContext } from '../../contexts/FiltersContext';
-
+import MySpinner from '../MySpinner';
 import { filters2args } from '../../utils';
 
 const TableData = ({ projectType, selectedTable }) => {
@@ -41,7 +41,8 @@ const TableData = ({ projectType, selectedTable }) => {
   }
 
   if (isLoading || isFetching) {
-    return <div>Loading...</div>;
+    const spinnerMessage = `Fetching Records from [${selectedTable}]`;
+    return <MySpinner message={spinnerMessage} />;
   }
 
   if (data.data.length === 0) {

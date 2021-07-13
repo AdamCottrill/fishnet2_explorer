@@ -22,7 +22,7 @@ const SideBarProjectType = (props) => {
       >
         <Stack px={2}>
           {projectTypes.map(([ptype, label]) => (
-            <Radio size="sm" value={ptype}>
+            <Radio size="sm" key={ptype} value={ptype}>
               {label}
             </Radio>
           ))}

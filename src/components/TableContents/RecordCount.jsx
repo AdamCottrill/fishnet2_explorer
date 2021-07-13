@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-
+import { Heading } from '@chakra-ui/react';
 import { useQuery } from 'react-query';
 
 import { FiltersContext } from '../../contexts/FiltersContext';
@@ -27,10 +27,12 @@ const RecordCount = ({ projectType, selectedTable }) => {
   }
 
   return (
-    <div>
-      Total Records:
-      {data ? data.values[0].records.toLocaleString() : '--'}
-    </div>
+    <>
+      <Heading as="h3" size="md">
+        Total Records:
+        {data ? data.values[0].records.toLocaleString() : '--'}
+      </Heading>
+    </>
   );
 };
 export default RecordCount;

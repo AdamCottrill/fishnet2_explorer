@@ -11,9 +11,9 @@ import {
   HStack,
   VStack,
   Heading,
-  Spinner,
 } from '@chakra-ui/react';
 
+import MySpinner from '../components/MySpinner';
 import StatsSideBar from '../components/StatsSideBar';
 import { ProjectTypeContext } from '../contexts/ProjectTypeContext';
 import { TableContext } from '../contexts/TableContext';
@@ -57,6 +57,8 @@ export default function FieldStats() {
     );
   }
 
+  const spinnerMessage = `Fetching Data for "{selectedField}" from the {selectedTable} table`;
+
   return (
     <HStack align="top" spacing="30px" flex="1">
       <Flex width="250px">
@@ -65,17 +67,7 @@ export default function FieldStats() {
       <Box flex="1">
         {selectedField ? (
           isFetching ? (
-            <Flex>
-              <VStack mt="20px" flex="1" spacing="25px">
-                <Heading as="h4" size="md">
-                  <em>
-                    Fetching Data for "{selectedField}" from the {selectedTable}{' '}
-                    table
-                  </em>
-                </Heading>
-                <Spinner size="xl" />
-              </VStack>
-            </Flex>
+            <MySpinner message={spinnerMessage} />
           ) : (
             <ShowFieldStats data={data} />
           )

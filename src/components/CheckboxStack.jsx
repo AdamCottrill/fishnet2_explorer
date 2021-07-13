@@ -7,8 +7,9 @@ export default function CheckboxStack(props) {
 
   return (
     <Stack>
-      {fields.map((field) => (
+      {fields.map((field, i) => (
         <Checkbox
+          key={i}
           size="sm"
           value={field}
           //isChecked={_filters.notNull.includes(field)}

@@ -16,7 +16,7 @@ const SortableTable = ({ columns, data }) => {
     );
 
   return (
-    <div style={{ overflow: 'auto', maxWidth: '100%' }}>
+    <div style={{ overflowX: 'auto', maxWidth: '100%' }}>
       <Table
         variant="striped"
         colorScheme="gray"

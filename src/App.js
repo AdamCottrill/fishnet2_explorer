@@ -2,8 +2,8 @@ import { useContext } from 'react';
 
 import './App.css';
 
-
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import {Heading} from "@chakra-ui/react";
 import TableContents from './pages/TableContents';
 import FieldStats from './pages/FieldStats';
 
@@ -23,10 +23,10 @@ function App() {
     <Router>
       <div className="App">
             <Nav />
-                  <h2>
+                  <Heading as="h2" mb={6} size="lg">
                     <div>ProjectType: {projectTypeLabel[1]} </div>
                     <div>Table: {selectedTable}</div>
-                  </h2>
+                  </Heading>
 
               <Switch>
                 <Route path="/field_stats">

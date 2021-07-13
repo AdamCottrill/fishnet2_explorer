@@ -22,7 +22,6 @@ const SideBar = (props) => {
   return (
     <VStack flex="1">
       <h3>Refine By:</h3>
-
       <Accordion m={2} allowToggle>
         <AccordionItem>
           <h2>

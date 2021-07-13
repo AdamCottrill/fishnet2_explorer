@@ -11,15 +11,15 @@ const FieldsRadioButtons = (props) => {
       onChange={setSelectedItem}
       defaultValue={selectedItem}
     >
-      {items.map((item) => {
-        return (
-          <Stack px={2}>
-            <Radio mt={1} size="sm" value={item}>
+      <Stack px={2}>
+        {items.map((item, i) => {
+          return (
+            <Radio key={i} mt={1} size="sm" value={item}>
               {item}
             </Radio>
-          </Stack>
-        );
-      })}
+          );
+        })}
+      </Stack>
     </RadioGroup>
   );
 };
