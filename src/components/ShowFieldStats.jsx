@@ -13,13 +13,14 @@ import {
   Td,
 } from '@chakra-ui/react';
 
-import { SelectedFieldContext } from '../contexts/SelectedFieldContext';
-import { TableContext } from '../contexts/TableContext';
+import { SelectedContext } from '../contexts/SelectedContext';
 
 export default function ShowFieldStats(props) {
   const { data } = props;
-  const { selectedTable } = useContext(TableContext);
-  const { selectedField } = useContext(SelectedFieldContext);
+
+  const { selected } = useContext(SelectedContext);
+
+  const { field: selectedField, table: selectedTable } = selected;
 
   return (
     <Flex mt={10}>

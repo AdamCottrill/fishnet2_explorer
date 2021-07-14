@@ -2,21 +2,22 @@ import React, { useContext } from 'react';
 
 import { useQuery } from 'react-query';
 
-import { TableContext } from '../contexts/TableContext';
-import { ProjectTypeContext } from '../contexts/ProjectTypeContext';
+import { SelectedContext } from '../contexts/SelectedContext';
 
 import { getTables } from '../services/api';
 
 import SidebarRadioInput from './SidebarRadioInput/SidebarRadioInput';
 
 const SideBarTableRadioButtons = (props) => {
-  const { projectType } = useContext(ProjectTypeContext);
-  const { selectedTable, setSelectedTable } = useContext(TableContext);
+  const { selected, setSelected } = useContext(SelectedContext);
+  const { table: selectedTable, projectType } = selected;
 
   const { data, error, isLoading, isFetching } = useQuery(
     ['tableList', projectType],
     () => getTables(projectType)
   );
+
+  const setSelectedTable = (value) => setSelected('table', value);
 
   if (error) {
     return <div>Something went wrong</div>;

@@ -2,8 +2,8 @@ import React, { useContext } from 'react';
 
 import { useQuery } from 'react-query';
 
-import { TableContext } from '../../contexts/TableContext';
-import { ProjectTypeContext } from '../../contexts/ProjectTypeContext';
+import { SelectedContext } from '../../contexts/SelectedContext';
+
 import { FieldsContext } from '../../contexts/FieldsContext';
 import { getTableFields } from '../../services/api';
 
@@ -12,9 +12,10 @@ import CheckboxStack from '../CheckboxStack';
 const SideBarFieldList = (props) => {
   // when the selectedTable changes - update the list of fields in state
 
-  const { projectType } = useContext(ProjectTypeContext);
-  const { selectedTable } = useContext(TableContext);
+  const { selected } = useContext(SelectedContext);
   const { setFields } = useContext(FieldsContext);
+
+  const { table: selectedTable, projectType } = selected;
 
   const { data, error, isLoading, isFetching } = useQuery(
     ['getTableFields', projectType, selectedTable],

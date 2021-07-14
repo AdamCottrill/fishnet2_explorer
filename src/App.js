@@ -4,18 +4,17 @@ import './App.css';
 
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import {Heading} from "@chakra-ui/react";
+
 import TableContents from './pages/TableContents';
 import FieldStats from './pages/FieldStats';
-
 import Nav from './components/Nav'
-import { ProjectTypeContext } from './contexts/ProjectTypeContext';
-import { TableContext } from './contexts/TableContext';
-
+import { SelectedContext } from './contexts/SelectedContext';
 import { projectTypes } from './utils';
 
 function App() {
-  const { selectedTable } = useContext(TableContext);
-  const { projectType } = useContext(ProjectTypeContext);
+  const { selected } = useContext(SelectedContext);
+
+  const {table:selectedTable, projectType} = selected
 
   const projectTypeLabel = projectTypes.filter((x) => x[0] === projectType)[0];
 

@@ -1,8 +1,7 @@
 import React, { useState, useContext, useEffect } from 'react';
 import { useQuery } from 'react-query';
 
-import { ProjectTypeContext } from '../../contexts/ProjectTypeContext';
-import { TableContext } from '../../contexts/TableContext';
+import { SelectedContext } from '../../contexts/SelectedContext';
 import { FiltersContext } from '../../contexts/FiltersContext';
 
 import InputStack from '../InputStack';
@@ -13,9 +12,10 @@ const SideBarValuesIn = (props) => {
   // when the selectedTable changes - update the list of fields in state
   // current localFilters for this component willalso have to come from context
 
-  const { projectType } = useContext(ProjectTypeContext);
-  const { selectedTable } = useContext(TableContext);
+  const { selected } = useContext(SelectedContext);
   const { filters, setValuesIn } = useContext(FiltersContext);
+
+  const { table: selectedTable, projectType } = selected;
 
   const [localFilters, setLocalFilters] = useState({});
 
