@@ -13,20 +13,17 @@ import {
   Heading,
 } from '@chakra-ui/react';
 
-import MySpinner from '../components/MySpinner';
-import StatsSideBar from '../components/StatsSideBar';
-import { ProjectTypeContext } from '../contexts/ProjectTypeContext';
-import { TableContext } from '../contexts/TableContext';
-import { SelectedFieldContext } from '../contexts/SelectedFieldContext';
-
+import { SelectedContext } from '../contexts/SelectedContext';
 import { getFieldStats } from '../services/api';
 
+import MySpinner from '../components/MySpinner';
+import StatsSideBar from '../components/StatsSideBar';
 import ShowFieldStats from '../components/ShowFieldStats';
 
 export default function FieldStats() {
-  const { projectType } = useContext(ProjectTypeContext);
-  const { selectedTable } = useContext(TableContext);
-  const { selectedField } = useContext(SelectedFieldContext);
+  const { selected } = useContext(SelectedContext);
+
+  const { field: selectedField, table: selectedTable, projectType } = selected;
 
   let queryEnabled = (selectedField && selectedField !== null) === true;
   const { data, error, isFetching } = useQuery(

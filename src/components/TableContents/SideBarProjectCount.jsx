@@ -2,8 +2,8 @@ import React, { useContext } from 'react';
 
 import { useQuery } from 'react-query';
 
-import { TableContext } from '../../contexts/TableContext';
-import { ProjectTypeContext } from '../../contexts/ProjectTypeContext';
+import { SelectedContext } from '../../contexts/SelectedContext';
+
 import { getProjectCount } from '../../services/api';
 import { FiltersContext } from '../../contexts/FiltersContext';
 import { filters2args } from '../../utils';
@@ -11,8 +11,9 @@ import { filters2args } from '../../utils';
 const SideBarProjectCount = (props) => {
   // when the selectedTable changes - update the list of fields in state
 
-  const { projectType } = useContext(ProjectTypeContext);
-  const { selectedTable } = useContext(TableContext);
+  const { selected } = useContext(SelectedContext);
+
+  const { table: selectedTable, projectType } = selected;
 
   const { filters } = useContext(FiltersContext);
 

@@ -1,14 +1,11 @@
 import React, { useContext } from 'react';
 
 import { Table as STable } from 'semantic-ui-react';
-import { useTable, useSortBy } from 'react-table';
-
-import { BsChevronDown, BsChevronUp, BsInfoCircle } from 'react-icons/bs';
+import { useTable } from 'react-table';
 
 import { Button } from 'semantic-ui-react';
 
-import { TableContext } from '../contexts/TableContext';
-import { ProjectTypeContext } from '../contexts/ProjectTypeContext';
+import { SelectedContext } from '../contexts/SelectedContext';
 
 const SortableTable = ({ columns, data }) => {
   const { getTableProps, headerGroups, rows, prepareRow } = useTable(
@@ -19,8 +16,8 @@ const SortableTable = ({ columns, data }) => {
     //useSortBy
   );
 
-  const { projectType } = useContext(ProjectTypeContext);
-  const { selectedTable } = useContext(TableContext);
+  const { selected } = useContext(SelectedContext);
+  const { table: selectedTable, projectType } = selected;
 
   const handleclick = (e) => {
     console.log(projectType, selectedTable, e.target.id);

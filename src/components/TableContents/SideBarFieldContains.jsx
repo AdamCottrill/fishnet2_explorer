@@ -3,8 +3,7 @@ import { useQuery } from 'react-query';
 
 import InputStack from '../InputStack';
 
-import { ProjectTypeContext } from '../../contexts/ProjectTypeContext';
-import { TableContext } from '../../contexts/TableContext';
+import { SelectedContext } from '../../contexts/SelectedContext';
 import { FiltersContext } from '../../contexts/FiltersContext';
 
 import { getTableFields } from '../../services/api';
@@ -12,8 +11,9 @@ import { getTableFields } from '../../services/api';
 const SideBarFieldContains = (props) => {
   // when the selectedTable changes - update the list of fields in state
   // current localFilters for this component willalso have to come from context
-  const { selectedTable } = useContext(TableContext);
-  const { projectType } = useContext(ProjectTypeContext);
+  const { selected } = useContext(SelectedContext);
+
+  const { table: selectedTable, projectType } = selected;
 
   const { filters, setFieldContains } = useContext(FiltersContext);
 

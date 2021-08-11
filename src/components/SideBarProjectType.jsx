@@ -1,16 +1,19 @@
 import React, { useContext } from 'react';
 
-import { ProjectTypeContext } from '../contexts/ProjectTypeContext';
+import { SelectedContext } from '../contexts/SelectedContext';
 
 import { Flex, RadioGroup, Radio, Stack } from '@chakra-ui/react';
 
 import { projectTypes } from '../utils';
 
 const SideBarProjectType = (props) => {
-  const { projectType, setProjectType } = useContext(ProjectTypeContext);
+  const { selected, setSelected } = useContext(SelectedContext);
 
-  const handleChange = (event, { value }) => {
-    setProjectType(value);
+  const { projectType } = selected;
+
+  const handleChange = (value) => {
+    console.log(value);
+    setSelected('projectType', value);
   };
 
   return (
