@@ -3,22 +3,16 @@ import pdb
 import sqlite3
 from collections import OrderedDict
 
-# DBS = {
-#     "all": "./databases/GrandGrandWazoo.db",
-#     "cfcd": "./databases/CFCD_projects.db",
-#     "iais": "./databases/IAIS_projects.db",
-#     "im": "./databases/IM_projects.db",
-#     "sc": "./databases/SC_projects.db",
-#     "sf": "./databases/SF_projects.db",
-#     "sd": "./databases/SD_projects.db",
-# }
+DB_DIR = "C:/Users/COTTRILLAD/1work/react/fn_viewer/api/databases"
+
 DBS = {
-    all: "/home/adam/Documents/sandbox/IM_projects.db",
-    "iais": "/home/adam/Documents/sandbox/IM_projects.db",
-    "im": "/home/adam/Documents/sandbox/IM_projects.db",
-    "sc": "/home/adam/Documents/sandbox/IM_projects.db",
-    "sd": "/home/adam/Documents/sandbox/IM_projects.db",
-    "sf": "/home/adam/Documents/sandbox/IM_projects.db",
+    "all": os.path.join(DB_DIR, "GrandGrandWazoo.db"),
+    "cfcd": os.path.join(DB_DIR, "CFCD_projects.db"),
+    "iais": os.path.join(DB_DIR, "IAIS_projects.db"),
+    "im": os.path.join(DB_DIR, "IM_projects.db"),
+    "sc": os.path.join(DB_DIR, "SC_projects.db"),
+    "sf": os.path.join(DB_DIR, "SF_projects.db"),
+    "sd": os.path.join(DB_DIR, "SD_projects.db"),
 }
 
 
@@ -193,8 +187,6 @@ def build_sql_filter(url_filters, fields):
 
 
     """
-
-    print(f"url_filters={url_filters}")
 
     _notNulls = url_filters.get("notNull")
 

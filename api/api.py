@@ -1,27 +1,27 @@
 import sqlite3
 
-from flask import Flask, request
+from flask import Flask, request, send_from_directory
 
-from utils import (build_sql_filter, get_field_arg, get_field_names, run_query,
-                   sort_fields)
+from .utils import (build_sql_filter, get_field_arg, get_field_names,
+                    run_query, sort_fields)
 
-app = Flask(__name__)
-app.config["JSON_SORT_KEYS"] = False
+api = Flask(__name__, static_folder="static", static_url_path="/")
+api.config["JSON_SORT_KEYS"] = False
 
 # consider loading tables and sorted fields as soon as the application loads.
 
 ROW_LIMIT = 200
 FN_KEYFIELDS = ["PRJ_CD", "SAM", "EFF", "SPC", "GRP", "FISH", "AGEID"]
 
-# sort fields by keyfield, fields, xfields
 
-# parse filter queries:
-# field=foo
-# field_like=foo
-# field_in=foo.bar.baz
+@api.route("/")
+def react_app():
+    """Return the template that will render our react app"""
+    print(api.static_folder)
+    return send_from_directory(api.static_folder, "index.html")
 
 
-@app.route("/<project_type>/tables")
+@api.route("/api/<project_type>/tables")
 def get_database_tables(project_type):
     """"""
 
@@ -30,7 +30,7 @@ def get_database_tables(project_type):
     return {"tables": tables}
 
 
-@app.route("/<project_type>/<table_name>/fields")
+@api.route("/api/<project_type>/<table_name>/fields")
 def get_table_fields(project_type, table_name):
     """Given a table, return all of the fields.  if any of the FN
     Keyfields are in the table, return them first in the correct order and
@@ -47,7 +47,7 @@ def get_table_fields(project_type, table_name):
     return {"fields": sortedFields}
 
 
-@app.route("/<project_type>/<table_name>/data/")
+@api.route("/api/<project_type>/<table_name>/data/")
 def get_table_data(project_type, table_name):
     """Given a table name, build the query based on the supplied fields
     and filters.
@@ -61,8 +61,6 @@ def get_table_data(project_type, table_name):
     """
 
     filters = request.args
-
-    print(f"filters = {filters}")
 
     fields = filters.get("fields")
     field_arg = get_field_arg(project_type, table_name, FN_KEYFIELDS, fields)
@@ -84,7 +82,7 @@ def get_table_data(project_type, table_name):
     return {"data": data}
 
 
-@app.route("/always_null/<project_type>/<table_name>/<field_name>/")
+@api.route("/api/always_null/<project_type>/<table_name>/<field_name>/")
 def has_data(project_type, table_name, field_name):
     """our front end will call this endpoint, with the current filters to
     see if this field has any data, returns true if it does, returns
@@ -109,7 +107,7 @@ def has_data(project_type, table_name, field_name):
         return {"has_data": False}
 
 
-@app.route("/distinct/<project_type>/<table_name>/<field_name>/")
+@api.route("/api/distinct/<project_type>/<table_name>/<field_name>/")
 def distinct_values(project_type, table_name, field_name):
     """our front end will call this endpoint, with the current filters to
     see if this field has any data, returns true if it does, returns
@@ -144,7 +142,7 @@ def distinct_values(project_type, table_name, field_name):
     return {"values": list(data)}
 
 
-@app.route("/<project_type>/<table_name>/record_count/")
+@api.route("/api/<project_type>/<table_name>/record_count/")
 def record_count(project_type, table_name):
     """our front end will call this endpoint, with the current filters to
     see if this field has any data, returns true if it does, returns
@@ -174,7 +172,7 @@ def record_count(project_type, table_name):
     return {"values": list(data)}
 
 
-@app.route("/field_stats/<project_type>/<table_name>/<field_name>/")
+@api.route("/api/field_stats/<project_type>/<table_name>/<field_name>/")
 def field_stats(project_type, table_name, field_name):
     """this endpoint will return a number of statistics about how a field has
     been used in a table:  How many times it is populated, coount null records
@@ -210,7 +208,6 @@ def field_stats(project_type, table_name, field_name):
         distinct_vals = [
             f"Field '{field_name}' not found in '{table_name}'",
         ]
-
 
     sql = f"""select count(*) as 'N' from
     (select distinct [PRJ_CD] from [{table_name}]
@@ -261,7 +258,3 @@ def field_stats(project_type, table_name, field_name):
         "project_counts": list(project_counts),
         "common_values": list(common_values),
     }
-
-
-
-

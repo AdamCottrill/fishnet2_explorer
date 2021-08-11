@@ -30,3 +30,6 @@ api/__pycache__/
 jsconfig.json
 tmp.diff
 api/.flaskenv
+.env
+api/databases/*
+api/static/*

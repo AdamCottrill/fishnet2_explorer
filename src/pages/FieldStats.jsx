@@ -57,7 +57,7 @@ export default function FieldStats() {
     );
   }
 
-  const spinnerMessage = `Fetching Data for "{selectedField}" from the {selectedTable} table`;
+  const spinnerMessage = `Fetching Data for "${selectedField}" from the ${selectedTable} table`;
 
   return (
     <HStack align="top" spacing="30px" flex="1">

@@ -23,6 +23,7 @@ export default function Nav() {
       </HStack>
 
       <Spacer />
+
       <IconButton
         rounded="full"
         variant="ghost"
